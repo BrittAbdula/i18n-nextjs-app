@@ -1,0 +1,11 @@
+{
+    "Index": {
+      "title": "Hello world!"
+    },
+    "Client-page": {
+      "title": "Hello Client-page!"
+    },
+    "Server-page": {
+      "title": "Hello Server-page!"
+    }
+  }
