@@ -1,9 +1,9 @@
 {
   "Index": {
-    "title": "EmojiCuenta",
+    "title": "EmojiTell",
     "translator": "traductor",
     "emojiCombo": "Combinación de emojis",
-    "slogan": "EmojiCuenta - ¡La mejor manera de expresar tus sentimientos!",
+    "slogan": "EmojiTell - Otra forma de expresar tus sentimientos.!",
     "step_1": "Describe lo que quieres expresar 😶",
     "step_2": "Traduce tus sentimientos en una combinación de emojis 🤗💭🌟",
     "exampleInput": "por ejemplo, Te amo para siempre",
@@ -18,17 +18,17 @@
       "blog": "Blog"
     },
     "Header": {
-      "h1_suf": "EmojiCuenta",
+      "h1_suf": "EmojiTell",
       "h1_pre": "Traductor",
       "LanguageChanger": {
         "flagSrc": "/images/es.png",
-        "flagAlt": "Inglés"
+        "flagAlt": "Español"
       }
     },
     "Footer":{
       "by": "Por ",
-      "author": "EmojiCuenta",
-      "description": "¡La mejor manera de expresar tus sentimientos!"
+      "author": "EmojiTell",
+      "description": "Otra forma de expresar tus sentimientos.!"
     }
   }
 }

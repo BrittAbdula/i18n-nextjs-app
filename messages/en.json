@@ -3,7 +3,7 @@
       "title": "EmojiTell",
       "translator": "translator",
       "emojiCombo": "Emoji combo",
-      "slogan": "EmojiTell - The best way to express your feelings!",
+      "slogan": "EmojiTell - Another way to express your feelings!",
       "step_1": "Describe what you want to express 😶",
       "step_2": "Translate your feelings into emoji combo 🤗💭🌟",
       "exampleInput": "e.g. I love you forever",
@@ -28,7 +28,7 @@
       "Footer":{
         "by": "By ",
         "author": "EmojiTell",
-        "description": "The best way to express your feelings!"
+        "description": "Another way to express your feelings!"
       }
     }
   }

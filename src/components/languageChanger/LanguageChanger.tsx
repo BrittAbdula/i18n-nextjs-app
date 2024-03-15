@@ -3,18 +3,20 @@
 import { useRouter, usePathname } from '@/navigation';
 import React from 'react';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
-import { ChangeEvent, useTransition } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { locales } from '@/navigation';
+import { useTransition } from 'react';
 
 
 export default function LanguageChanger() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
+  const t = useTranslations('Index.Header.LanguageChanger');
   const [isPending, startTransition] = useTransition();
 
-  const flagSrc = locale === 'en' ? '/images/us.png' : '/images/spain.png';
-  const flagAlt = locale === 'en' ? 'english' : 'spanish';
+  const flagSrc = locale === 'en' ? '/images/us.png' : '/images/es.png';
+  const flagAlt = locale === 'en' ? 'english' : 'Español';
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     router.push(pathname, { locale: e.target.value });
