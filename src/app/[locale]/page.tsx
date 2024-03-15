@@ -1,19 +1,25 @@
-import Link from "next/link";
-import {useTranslations} from 'next-intl';
+import { locales } from "@/navigation";
+import { notFound } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import Header from "@/components/header/Header";
+import Footer from "@/components/footer/Footer";
+import { useMessages, NextIntlClientProvider } from "next-intl";
+import IndexComponent from "@/components/indexComponent/IndexComponent";
+
 
 
 export default function Home() {
-  const t = useTranslations('Index');
-  const userName = 'David';
+  const locale = useLocale();
+  if (!locales.includes(locale as any)) notFound();
+  const messages = useMessages();
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-    <h1>Welcome to my app, {t('title')}!</h1>
-    <div>
-      <Link href="/client-page">client-page</Link>
-    </div>
-    <div>
-      <Link href="/server-page">server-page</Link>
-    </div>
-    </main>
-  );
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <div className="flex w-full mx-auto flex-col items-center justify-center py-2 min-h-screen">
+        <Header />
+        <IndexComponent />
+        <Footer />
+      </div>
+    </NextIntlClientProvider>
+  )
 }

@@ -1,0 +1,117 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+import React, { useState } from "react";
+import RoundFilledNumber from "@/components/roundFilledNumber/RoundFilledNumber";
+import { useChatGPT } from '@/app/[locale]/useChatGPT';
+import LoadingDots from "@/components/loadingDots/LoadingDots";
+import { Toaster, toast } from "react-hot-toast";
+import type { NextPage } from "next";
+
+
+const IndexComponent: NextPage = () => {
+    const [prompt, setPrompt] = useState('');
+    const t = useTranslations("Index");
+    const { generatedEmojis, isLoading, generateEmojis, restart } = useChatGPT(() => setPrompt( prompt ));
+
+    return (
+        <main className="flex flex-1 w-full flex-col items-center text-center px-4 mt-12 sm:mt-10">
+            <h1 className="sm:text-3xl text-2xl max-w-1xl font-normal text-slate-900">
+                {t('emojiCombo')} <span style={{ color: '#1A6292' }}>{t('translator')}</span>
+            </h1>
+
+            <h2 className="sm:text-xl text-xl max-w-1xl font-light text-gray-600  sm:mt-2">
+                {t('slogan')}
+            </h2>
+
+            <div className="max-w-xl w-full">
+                <div className="flex mt-10 items-center space-x-3">
+                    <RoundFilledNumber number={1} />
+                    <p className="text-left font-medium flex align-center">
+                        {t('step_1')} {" "}
+                    </p>
+                </div>
+                <textarea
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    rows={4}
+                    className="p-2 w-full rounded-md border-gray-300 border-2 shadow-sm focus:border-black focus:ring-black my-5"
+                    placeholder={t('exampleInput') || ''}
+                />
+                <div className="flex mt-2 items-center space-x-3">
+                    <RoundFilledNumber number={2} />
+                    <p className="text-left font-medium flex align-center">
+                        {t('step_2')} {" "}
+                    </p>
+                </div>
+
+                {!isLoading && (<>
+                    <button
+                        disabled={!prompt}
+                        className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            generateEmojis(prompt);
+                        }}
+                    >
+                        {t('cta')}&rarr;
+                    </button>
+                    <button
+                        className="w-full justify-start mt-4"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setPrompt('');
+                            restart();
+                        }}>
+                        {t('reset')}
+                    </button>
+                </>
+                )}
+                {isLoading && (
+                    <button
+                        className="p-2 bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+                        disabled
+                    >
+                        <LoadingDots color="white" style="large" />
+                    </button>
+                )}
+            </div>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+                toastOptions={{ duration: 2000 }}
+            />
+            <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
+
+            <div className="max-w-xl w-full">
+                <div className="w-full justify-start mt-4">
+                    <button 
+                        onClick={() => 
+                            {
+                                navigator.clipboard.writeText(generatedEmojis.emojis);
+                            toast(
+                                t('copyed_text'),
+                                {
+                                    icon: "✂️",
+                                }
+                            );}
+                        }>
+                       { t('copy_text')}
+                    </button>
+                </div>
+                <label className="p-2 text-left font-medium flex align-center">
+                {generatedEmojis.emojis}
+                </label>
+                <label className="p-2 text-left font-medium flex align-center">
+                    {generatedEmojis.interpretation}
+                </label>
+                <label className="p-2 text-left font-medium flex align-center">
+                    {generatedEmojis.tags}
+                </label>
+            </div>
+
+        </main>
+    );
+};
+
+export default IndexComponent;

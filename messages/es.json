@@ -1,11 +1,34 @@
 {
-    "Index": {
-      "title": "Hello eseseseseseseseseseseseseseses!"
+  "Index": {
+    "title": "EmojiCuenta",
+    "translator": "traductor",
+    "emojiCombo": "Combinación de emojis",
+    "slogan": "EmojiCuenta - ¡La mejor manera de expresar tus sentimientos!",
+    "step_1": "Describe lo que quieres expresar 😶",
+    "step_2": "Traduce tus sentimientos en una combinación de emojis 🤗💭🌟",
+    "exampleInput": "por ejemplo, Te amo para siempre",
+    "cta": "Obtén tu combinación de emojis",
+    "reset": "Inicia una nueva sesión",
+    "copy_text": "✂️ Haz clic para copiar la combinación de emojis 👇",
+    "copyed_text": "combinación de emojis copiada al portapapeles",
+    "links": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "discovery": "Descubrimiento",
+      "blog": "Blog"
     },
-    "Client-page": {
-      "title": "Hello Client-page-eseseseseses!"
+    "Header": {
+      "h1_suf": "EmojiCuenta",
+      "h1_pre": "Traductor",
+      "LanguageChanger": {
+        "flagSrc": "/images/es.png",
+        "flagAlt": "Inglés"
+      }
     },
-    "Server-page": {
-      "title": "Hello Server-page-eseseseseses!"
+    "Footer":{
+      "by": "Por ",
+      "author": "EmojiCuenta",
+      "description": "¡La mejor manera de expresar tus sentimientos!"
     }
   }
+}

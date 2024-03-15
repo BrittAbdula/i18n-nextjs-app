@@ -1,11 +1,34 @@
 {
     "Index": {
-      "title": "Hello world!"
-    },
-    "Client-page": {
-      "title": "Hello Client-page!"
-    },
-    "Server-page": {
-      "title": "Hello Server-page!"
+      "title": "EmojiTell",
+      "translator": "translator",
+      "emojiCombo": "Emoji combo",
+      "slogan": "EmojiTell - The best way to express your feelings!",
+      "step_1": "Describe what you want to express 😶",
+      "step_2": "Translate your feelings into emoji combo 🤗💭🌟",
+      "exampleInput": "e.g. I love you forever",
+      "cta": "Get my emoji combo ",
+      "reset": "Start a new session",
+      "copy_text": "✂️ Click to copy the emoji combo 👇",
+      "copyed_text": "emoji combo copied to clipboard",
+      "links": {
+        "home": "Home",
+        "about": "About",
+        "discovery": "Discovery",
+        "blog": "Blog"
+      },
+      "Header": {
+        "h1_suf": "EmojiTell",
+        "h1_pre": "Translator",
+        "LanguageChanger": {
+          "flagSrc": "/images/us.png",
+          "flagAlt": "English"
+        }
+      },
+      "Footer":{
+        "by": "By ",
+        "author": "EmojiTell",
+        "description": "The best way to express your feelings!"
+      }
     }
   }
