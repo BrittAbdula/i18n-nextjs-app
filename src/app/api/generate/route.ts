@@ -17,7 +17,7 @@ export const POST = async (req: Request): Promise<Response> => {
     }   
 
     const payload: OpenAIStreamPayload = {
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-4-turbo-preview',
         messages: [
             {
                 "role": "system",
