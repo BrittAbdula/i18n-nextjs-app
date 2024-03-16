@@ -11,7 +11,7 @@ export interface OpenAIStreamPayload {
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
     const openai_URL = "https://api.openai.com/v1/chat/completions"
     // const openai_URL = "https://run.mocky.io/v3/75eda1e3-2976-4979-a3f9-fb8728c2181a"
-    //const openai_URL = "https://run.mocky.io/v3/684e6fd4-561c-4791-b1b9-0e8bbee61318"
+    // const openai_URL = "https://run.mocky.io/v3/48fd5469-b848-428c-8c56-3ba151e6507c"
 
     const response = await fetch(openai_URL, {
         method: "POST",
@@ -37,6 +37,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 }
 
 // mock response:
+
 // {
 //     "id": "chatcmpl-123",
 //     "object": "chat.completion",
@@ -45,7 +46,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 //     "system_fingerprint": "fp_44709d6fcb",
 //     "choices": [{
 //       "index": 0,
-//       "message":   {"role": "assistant","content":"{\"emojis\": \"😍💖🔐⏳\",\"interpretation\": \"The heart eyes emoji expresses adoration, the heart with ribbon symbolizes the gift of love, the locked with key represents security and commitment.\",\"tags\": \"love, eternity, commitment\"} "},
+//       "message":   {"role": "assistant","content":"{\"emojis\": \"😍💖🔐⏳\",\"interpretation\": \"The heart eyes emoji expresses adoration, the heart with ribbon symbolizes the gift of love, the locked with key represents security and commitment.\",\"tags\": [\"love\", \"eternity\", \"commitment\"]"},
 //       "logprobs": null,
 //       "finish_reason": "stop"
 //     }],
