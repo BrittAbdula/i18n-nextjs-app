@@ -99,24 +99,26 @@ const IndexComponent: NextPage = () => {
                        { t('copy_text')}
                     </button>
                 </div>
-                { generatedEmojis.emojis && (<>
-                        <label className="p-2 text-left text-white font-medium flex align-center">
-                        {generatedEmojis.emojis}
-                        </label>
-                        <label className="p-2 text-left text-white font-medium flex align-center">
-                            {generatedEmojis.interpretation}
-                        </label>
-                        <label className="p-2 text-left text-white font-medium flex align-center">
-                            {'#' + generatedEmojis.tags.join(', #')}
-                        </label>
-                    </>
-                )}
-                { !generatedEmojis.emojis && (<>
-                        <label className="p-2 text-left text-white font-medium flex align-center">
-                            {generatedEmojis.interpretation}
-                        </label>
-                    </>
-                )}
+                <div className="w-full justify-start mt-4">
+                    { generatedEmojis.emojis && (<>
+                            <label className="p-2 text-left font-medium flex align-center">
+                            {generatedEmojis.emojis}
+                            </label>
+                            <label className="p-2 text-left font-medium flex align-center">
+                                {generatedEmojis.interpretation}
+                            </label>
+                            <label className="p-2 text-left font-medium flex align-center">
+                                {'#' + generatedEmojis.tags.join(', #')}
+                            </label>
+                        </>
+                    )}
+                    { !generatedEmojis.emojis && (<>
+                            <label className="p-2 text-left font-medium flex align-center">
+                                {generatedEmojis.interpretation}
+                            </label>
+                        </>
+                    )}
+                </div>
                 
             </div>
 
