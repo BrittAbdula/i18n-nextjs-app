@@ -5,7 +5,7 @@ import { useLocale } from "next-intl";
 type emojiCombo = {
     "emojis": string,
     "interpretation": string,
-    "tags": []
+    "tags": string[]
 }
 
 export function useChatGPT( clear:() => void ) {
@@ -48,10 +48,10 @@ export function useChatGPT( clear:() => void ) {
         const responseText = await response.text();
         const responseJson = JSON.parse(responseText);
         const responseContent = responseJson?.choices?.[0]?.message?.content;
-        const generatedEmojis = JSON.parse(responseContent)
+        const generatedEmojis = JSON.parse(responseContent) as emojiCombo;
         setGeneratedEmojis(generatedEmojis);
 
-        const reply = makeMessage('assistant', generatedEmojis);
+        const reply = makeMessage('assistant', responseContent);
         setConversation(sofar => [...sofar, reply]);
 
 

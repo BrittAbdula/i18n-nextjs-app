@@ -106,7 +106,7 @@ const IndexComponent: NextPage = () => {
                     {generatedEmojis.interpretation}
                 </label>
                 <label className="p-2 text-left font-medium flex align-center">
-                    {generatedEmojis.tags}
+                    {'#' + generatedEmojis.tags.join(', #')}
                 </label>
             </div>
 

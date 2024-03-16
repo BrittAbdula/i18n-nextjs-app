@@ -52,11 +52,7 @@ export const POST = async (req: Request): Promise<Response> => {
             },
             {
                 "role": "assistant",
-                "content": `{
-                    "emojis": "😍💖🔐⏳",
-                    "interpretation": "The heart eyes emoji expresses adoration, the heart with ribbon symbolizes the gift of love, the locked with key represents security and commitment, and the hourglass not done implies an enduring, infinite amount of time, together conveying 'I love you forever.'",
-                    "tags": "love, eternity, commitment"
-                  }`
+                "content": `"emojis": "😍💘👉👈","interpretation": "The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'.","tags": ["love", "romantic", "affection"]`
             },
             ...messages
         ],
