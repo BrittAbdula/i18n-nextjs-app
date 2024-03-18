@@ -69,7 +69,6 @@ export const POST = async (req: Request): Promise<Response> => {
         
         const parsedResponse = JSON.parse(rawValue);
         const choices = parsedResponse.choices;
-        return new Response(rawValue);
 
         if (choices && choices.length > 0) {
         const content = JSON.parse(parsedResponse.choices[0].message.content);
