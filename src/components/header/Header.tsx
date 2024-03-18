@@ -12,6 +12,11 @@ export default function Header() {
                 </h1>
             </Link>
             <div className="flex flex-row">
+                <Link href="/about">Home</Link>
+                <Link href="/about">Discovery</Link>
+                <Link href="/about">About</Link>
+            </div>
+            <div className="flex flex-row">
                 <LanguageChanger />
             </div>
     </header>
