@@ -1,6 +1,5 @@
 import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/lib/OpenAIStream';
-import { insertEmojiComboLog } from '@/lib/emojicombolog';
-import { EmojiComboLogCreateInput } from '@/lib/emojicombolog';
+import { insertEmojiComboLog, EmojiComboLogCreateInput } from '@/lib/emojicombolog';
 
 if (!process.env.OPENAI_API_KEY) {
     throw new Error("Missing OPENAI_API_KEY");
