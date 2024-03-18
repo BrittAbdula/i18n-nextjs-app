@@ -71,6 +71,7 @@ export const POST = async (req: Request): Promise<Response> => {
         const choices = parsedResponse.choices;
 
         if (choices && choices.length > 0) {
+        return new Response(choices);
         const content = JSON.parse(parsedResponse.choices[0].message.content);
         const emojicombolog: EmojiComboLogCreateInput = {
             uid: 1,
