@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Emoji {
+  id           Int           @id @default(autoincrement())
+  codePoint    String        @unique
+  groupName    String?
+  subgroupName String?
+  qualified    String?
+  emojiChar    String        @unique
+  emojiVersion String?
+  name         String?
+  EmojiMeaning EmojiMeaning?
+}
+
+model EmojiCombo {
+  id             Int      @id @default(autoincrement())
+  comboText      String   @unique
+  emojis         String
+  lang           String
+  interpretation String?
+  tag1           String?
+  tag2           String?
+  tag3           String?
+  model          String?
+  createdAt      DateTime @default(now())
+}
+
+model EmojiComboLog {
+  id             Int      @id @default(autoincrement())
+  uid            Int
+  comboText      String
+  emojis         String
+  lang           String
+  interpretation String?
+  tag1           String?
+  tag2           String?
+  tag3           String?
+  model          String?
+  createdAt      DateTime @default(now())
+}
+
+model EmojiMeaning {
+  id             Int      @id @default(autoincrement())
+  emojiId        Int      @unique
+  interpretation String?
+  example1       String?
+  example2       String?
+  example3       String?
+  tag1           String?
+  tag2           String?
+  tag3           String?
+  model          String?
+  createdAt      DateTime @default(now())
+  Emoji          Emoji    @relation(fields: [emojiId], references: [id])
+}
+
+model EmojiTag {
+  id           Int            @id @default(autoincrement())
+  tagName      String         @unique
+  tagType      String
+  lang         String
+  createdAt    DateTime       @default(now())
+  EmojiTagRela EmojiTagRela[]
+}
+
+model EmojiTagRela {
+  id        Int      @id @default(autoincrement())
+  tagId     Int
+  emojisId  String
+  tagType   String
+  createdAt DateTime @default(now())
+  EmojiTag  EmojiTag @relation(fields: [tagId], references: [id])
+}
+
+model emoji_combo_log {
+  id             Int      @id @default(autoincrement())
+  uid            Int?
+  combo_text     String?  @db.VarChar(256)
+  emojis         String?  @db.VarChar(256)
+  lang           String?  @db.VarChar(16)
+  interpretation String?
+  tag_1          String?  @db.VarChar(128)
+  tag_2          String?  @db.VarChar(128)
+  tag_3          String?  @db.VarChar(128)
+  model          String?  @db.VarChar(32)
+  create_time    DateTime @default(now()) @db.Timestamp(6)
+}
+
+model emoji_data {
+  id             Int     @id @default(autoincrement())
+  code_point     String? @db.VarChar(50)
+  emoji_property String? @db.VarChar(255)
+  emoji_version  String? @db.VarChar(10)
+  count          Int?
+  emoji_char     String? @db.VarChar(10)
+  name           String?
+}
+
+model emoji_sequences {
+  id             Int     @id @default(autoincrement())
+  code_point     String? @db.VarChar(100)
+  emoji_property String? @db.VarChar(255)
+  name           String?
+  emoji_version  String? @db.VarChar(10)
+  count          Int?
+  emoji_char     String? @db.VarChar(10)
+}
+
+model emoji_test {
+  id            Int     @id @default(autoincrement())
+  code_point    String? @db.VarChar(100)
+  group_name    String? @db.VarChar(64)
+  subgroup_name String? @db.VarChar(64)
+  qualified     String? @db.VarChar(100)
+  emoji_char    String? @db.VarChar(10)
+  emoji_version String? @db.VarChar(10)
+  name          String?
+
+  @@index([code_point], map: "index_col_code")
+}
+
+model emoji_variation_sequences {
+  id            Int     @id @default(autoincrement())
+  code_point    String? @db.VarChar(50)
+  style         String? @db.VarChar(16)
+  emoji_version String? @db.VarChar(8)
+  description   String? @db.VarChar(64)
+}

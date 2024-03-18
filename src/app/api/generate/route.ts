@@ -1,9 +1,15 @@
-import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '../../../utils/OpenAIStream';
+import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/lib/OpenAIStream';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { insertEmojiComboLog } from '@/lib/emojicombolog';
+import { useLocale } from 'next-intl';
+import { EmojiComboLogCreateInput } from '@/lib/emojicombolog';
 
 if (!process.env.OPENAI_API_KEY) {
     throw new Error("Missing OPENAI_API_KEY");
 }
 
+
+// Use 'localeValue' in your code as needed
 export const POST = async (req: Request): Promise<Response> => {
 
     const { messages } = (await req.json()) as {
@@ -11,13 +17,12 @@ export const POST = async (req: Request): Promise<Response> => {
     };
 
     if(!messages) {
-        return new Response("Bad Request", {
-            status: 400
-        });
-    }   
+       return new Response("Bad Request");
+    }
+    const model = 'gpt-4-turbo-preview';
 
     const payload: OpenAIStreamPayload = {
-        model: 'gpt-4-turbo-preview',
+        model: model,
         messages: [
             {
                 "role": "system",
@@ -58,6 +63,32 @@ export const POST = async (req: Request): Promise<Response> => {
         ],
     };
 
-    const stream = await OpenAIStream(payload);
-    return new Response(stream);
+    try {
+        const rawValue = await OpenAIStream(payload);
+        if (rawValue === undefined) {
+          return new Response('An error occurred');
+        }
+    
+        const content = JSON.parse(rawValue).choices[0].message.content;
+        const emojicombolog: EmojiComboLogCreateInput = {
+            uid: 0,
+            comboText: messages[0].content,
+            emojis: content.emojis,
+            lang: 'en',
+            interpretation: content.interpretation || null,
+            tag1: content[0] || null,
+            tag2: content[1] || null,
+            tag3: content[2] || null,
+            model: model,
+            createdAt: new Date()
+        }
+    
+        // Asynchronously insert the data into the database
+        await insertEmojiComboLog(emojicombolog);
+    
+        return new Response(content)
+      } catch (error) {
+        console.error('Error:', error);
+        return new Response('An error occurred');
+      }
 };
