@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { ChatGPTMessage } from "@/utils/OpenAIStream";
+import { ChatGPTMessage } from "@/lib/OpenAIStream";
 import { useLocale } from "next-intl";
 
 type emojiCombo = {
