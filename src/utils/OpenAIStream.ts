@@ -9,9 +9,9 @@ export interface OpenAIStreamPayload {
 }
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
-    const openai_URL = "https://api.openai.com/v1/chat/completions"
+    // const openai_URL = "https://api.openai.com/v1/chat/completions"
     // const openai_URL = "https://run.mocky.io/v3/75eda1e3-2976-4979-a3f9-fb8728c2181a"
-    // const openai_URL = "https://run.mocky.io/v3/48fd5469-b848-428c-8c56-3ba151e6507c"
+    const openai_URL = "https://run.mocky.io/v3/48fd5469-b848-428c-8c56-3ba151e6507c"
 
     const response = await fetch(openai_URL, {
         method: "POST",

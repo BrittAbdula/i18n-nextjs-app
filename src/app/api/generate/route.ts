@@ -1,12 +1,37 @@
 import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '../../../utils/OpenAIStream';
+import { Prisma } from '@prisma/client';
+import { prisma } from '../../lib/prisma';
+import { useLocale } from "next-intl";
+
+const locale = useLocale();
 
 if (!process.env.OPENAI_API_KEY) {
     throw new Error("Missing OPENAI_API_KEY");
 }
 
+type emojiCombo = {
+    "emojis": string,
+    "interpretation": string,
+    "tags": string[]
+}
+
+// request 内容验证
+
+// 调用 OpenAI API 的返回写入数据库
+const saveEmojiComboLog = async (emojiComboLogInput: any) => {
+    try {
+        const emojiComboLog = await prisma.emojiComboLog.create({
+            data: emojiComboLogInput
+        });
+        console.log("insert emojiComboLog Successful, id:  ", emojiComboLog.id)
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export const POST = async (req: Request): Promise<Response> => {
 
-    const { messages } = (await req.json()) as {
+    const { messages } = (await req.json() ) as {
         messages: ChatGPTMessage[];
     };
 
@@ -58,6 +83,34 @@ export const POST = async (req: Request): Promise<Response> => {
         ],
     };
 
+    // Call OpenAI API
     const stream = await OpenAIStream(payload);
+    let responseJson = {choices: {messages: {content: ""}}};
+
+    if (typeof stream === 'string' && stream.trim().startsWith('{')) {
+        const responseJson = JSON.parse(stream);
+    }
+
+    // Save the emoji combo log to the database
+    try {
+        const responseContent = responseJson?.choices?.[0]?.message?.content;
+        const generatedEmojis = JSON.parse(responseContent) as emojiCombo;
+        const emojiComboLog: Prisma.EmojiComboLogCreateInput = {
+            uid: 0,
+            comboText: messages[-1].content,
+            emojis: generatedEmojis.emojis,
+            lang: locale,
+            interpretation: generatedEmojis.interpretation,
+            tag1: generatedEmojis.tags[0] || "",
+            tag2: generatedEmojis.tags[1] || "",
+            tag3: generatedEmojis.tags[2] || "",
+            model: 'gpt-4-turbo-preview',
+            createdAt: new Date()
+        };
+        await saveEmojiComboLog(emojiComboLog);
+    } catch (error) {
+        console.error(error);
+    }
+
     return new Response(stream);
 };

@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Emoji {
+  id           Int            @id @default(autoincrement())
+  codePoint    String?        @unique @db.VarChar(100)
+  groupName    String?        @db.VarChar(64)
+  subgroupName String?        @db.VarChar(64)
+  qualified    String?        @db.VarChar(100)
+  emojiChar    String?        @unique @db.VarChar(10)
+  emojiVersion String?        @db.VarChar(10)
+  name         String?
+  EmojiMeaning EmojiMeaning[]
+}
+
+model EmojiMeaning {
+  id             Int      @id @default(autoincrement())
+  emojiId        Int?
+  interpretation String?
+  example1       String?  @db.VarChar(255)
+  example2       String?  @db.VarChar(255)
+  example3       String?  @db.VarChar(255)
+  tag1           String?  @db.VarChar(128)
+  tag2           String?  @db.VarChar(128)
+  tag3           String?  @db.VarChar(128)
+  model          String?  @db.VarChar(32)
+  createdAt      DateTime @default(now()) @db.Timestamp(6)
+  Emoji          Emoji?   @relation(fields: [emojiId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model EmojiComboLog {
+  id             Int      @id @default(autoincrement())
+  uid            Int?
+  comboText      String?  @db.VarChar(255)
+  emojis         String?  @db.VarChar(255)
+  lang           String?  @db.VarChar(16)
+  interpretation String?
+  tag1           String?  @db.VarChar(128)
+  tag2           String?  @db.VarChar(128)
+  tag3           String?  @db.VarChar(128)
+  model          String?  @db.VarChar(32)
+  createdAt      DateTime @default(now()) @db.Timestamp(6)
+}
+
+model EmojiCombo {
+  id             Int      @id @default(autoincrement())
+  comboText      String?  @unique @db.VarChar(255)
+  emojis         String?  @db.VarChar(255)
+  lang           String?  @db.VarChar(16)
+  interpretation String?
+  tag1           String?  @db.VarChar(128)
+  tag2           String?  @db.VarChar(128)
+  tag3           String?  @db.VarChar(128)
+  model          String?  @db.VarChar(32)
+  createdAt      DateTime @default(now()) @db.Timestamp(6)
+}
+
+model EmojiTag {
+  id           Int            @id @default(autoincrement())
+  tagName      String?        @unique @db.VarChar(255)
+  tagType      String?        @db.Char(1)
+  lang         String?        @db.VarChar(16)
+  createdAt    DateTime       @default(now()) @db.Timestamp(6)
+  EmojiTagRela EmojiTagRela[]
+}
+
+model EmojiTagRela {
+  id        Int       @id @default(autoincrement())
+  tagId     Int?
+  emojisId  String?   @db.VarChar(255)
+  tagType   String?   @db.Char(1)
+  createdAt DateTime  @default(now()) @db.Timestamp(6)
+  EmojiTag  EmojiTag? @relation(fields: [tagId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}

@@ -1,6 +1,8 @@
 import { useState, useCallback } from "react";
 import { ChatGPTMessage } from "@/utils/OpenAIStream";
 import { useLocale } from "next-intl";
+import { Prisma } from "@prisma/client";
+
 
 type emojiCombo = {
     "emojis": string,
@@ -49,8 +51,11 @@ export function useChatGPT( clear:() => void ) {
         const responseJson = JSON.parse(responseText);
         const responseContent = responseJson?.choices?.[0]?.message?.content;
         const generatedEmojis = JSON.parse(responseContent) as emojiCombo;
+        
+        //
         setGeneratedEmojis(generatedEmojis);
 
+        
         const reply = makeMessage('assistant', responseContent);
         setConversation(sofar => [...sofar, reply]);
 
