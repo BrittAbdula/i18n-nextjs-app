@@ -93,6 +93,6 @@ export const POST = async (req: Request): Promise<Response> => {
     
       } catch (error) {
         console.error('Error:', error);
-        return new Response('An error occurred');
+        return new Response('An error occurred: '+rawValue);
       }
 };
