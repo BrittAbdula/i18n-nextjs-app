@@ -1,7 +1,5 @@
 import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/lib/OpenAIStream';
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { insertEmojiComboLog } from '@/lib/emojicombolog';
-import { useLocale } from 'next-intl';
 import { EmojiComboLogCreateInput } from '@/lib/emojicombolog';
 
 if (!process.env.OPENAI_API_KEY) {
@@ -63,30 +61,36 @@ export const POST = async (req: Request): Promise<Response> => {
         ],
     };
 
+    const rawValue = await OpenAIStream(payload);
     try {
-        const rawValue = await OpenAIStream(payload);
         if (rawValue === undefined) {
           return new Response('An error occurred');
         }
-    
-        const content = JSON.parse(rawValue).choices[0].message.content;
+        
+        const parsedResponse = JSON.parse(rawValue);
+        const choices = parsedResponse.choices;
+
+        if (choices && choices.length > 0) {
+        const content = JSON.parse(choices[0].message.content);
         const emojicombolog: EmojiComboLogCreateInput = {
-            uid: 0,
+            uid: 1,
             comboText: messages[0].content,
-            emojis: content.emojis,
+            emojis: content.emojis ? content.emojis : '',
             lang: 'en',
             interpretation: content.interpretation || null,
-            tag1: content[0] || null,
-            tag2: content[1] || null,
-            tag3: content[2] || null,
+            tag1: content.tags ? content.tags[0] || null : null,
+            tag2: content.tags ? content.tags[1] || null : null,
+            tag3: content.tags ? content.tags[2] || null : null,
             model: model,
             createdAt: new Date()
-        }
-    
+        };
+
         // Asynchronously insert the data into the database
         await insertEmojiComboLog(emojicombolog);
+        }
+
+        return new Response(rawValue);
     
-        return new Response(content)
       } catch (error) {
         console.error('Error:', error);
         return new Response('An error occurred');
