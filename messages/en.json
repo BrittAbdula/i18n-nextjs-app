@@ -11,8 +11,7 @@
       "reset": "Start a new session",
       "copy_text": "✂️ Click to copy the emoji combo 👇",
       "copyed_text": "emoji combo copied to clipboard",
-      "description":"Another way to express your feelings!",
-      "links": {
+      "Links": {
         "home": "Home",
         "about": "About",
         "discovery": "Discovery",
