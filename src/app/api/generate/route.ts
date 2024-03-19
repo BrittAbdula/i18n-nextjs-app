@@ -16,7 +16,8 @@ export const POST = async (req: Request): Promise<Response> => {
     if(!messages) {
        return new Response("Bad Request");
     }
-    const model = 'gpt-4-turbo-preview';
+    // const model = 'gpt-4-turbo-preview';
+    const model = 'gpt-3.5-turbo-0125';
 
     const payload: OpenAIStreamPayload = {
         model: model,
@@ -67,26 +68,26 @@ export const POST = async (req: Request): Promise<Response> => {
         }
         
         const parsedResponse = JSON.parse(rawValue);
-        const choices = parsedResponse.choices;
+        const choices = parsedResponse.choices[0].message.content;
 
-        if (choices && choices.length > 0) {
-        const content = JSON.parse(parsedResponse.choices[0].message.content);
-        const emojicombolog: EmojiComboLogCreateInput = {
-            uid: 1,
-            comboText: messages[0].content,
-            emojis: content.emojis ? content.emojis : '',
-            lang: 'en',
-            interpretation: content.interpretation || null,
-            tag1: content.tags ? content.tags[0] || null : null,
-            tag2: content.tags ? content.tags[1] || null : null,
-            tag3: content.tags ? content.tags[2] || null : null,
-            model: model,
-            createdAt: new Date()
-        };
+        // if (choices && choices.length > 0) {
+        // const content = JSON.parse(parsedResponse.choices[0].message.content);
+        // const emojicombolog: EmojiComboLogCreateInput = {
+        //     uid: 1,
+        //     comboText: messages[0].content,
+        //     emojis: content.emojis ? content.emojis : '',
+        //     lang: 'en',
+        //     interpretation: content.interpretation || null,
+        //     tag1: content.tags ? content.tags[0] || null : null,
+        //     tag2: content.tags ? content.tags[1] || null : null,
+        //     tag3: content.tags ? content.tags[2] || null : null,
+        //     model: model,
+        //     createdAt: new Date()
+        // };
 
-        // Asynchronously insert the data into the database
-        await insertEmojiComboLog(emojicombolog);
-        }
+        // // Asynchronously insert the data into the database
+        // await insertEmojiComboLog(emojicombolog);
+        // }
 
         return new Response(rawValue);
     

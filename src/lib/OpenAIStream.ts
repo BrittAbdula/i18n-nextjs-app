@@ -11,7 +11,7 @@ export interface OpenAIStreamPayload {
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
     const openai_URL = "https://api.openai.com/v1/chat/completions"
     // const openai_URL = "https://run.mocky.io/v3/48fd5469-b848-428c-8c56-3ba151e6507c"
-    // const openai_URL = "https://run.mocky.io/v3/d261ae32-c521-4bd2-b40b-7cf2a10916ad"
+    // const openai_URL = "https://run.mocky.io/v3/4000d08e-0149-4e36-aef6-d576a1224683"
 
     const response = await fetch(openai_URL, {
         method: "POST",
@@ -40,20 +40,26 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 // mock response:
 
 // {
-//     "id": "chatcmpl-123",
+//     "id": "chatcmpl-94FTYxSrxJvqRPPzWj7J10dzERHxr",
 //     "object": "chat.completion",
-//     "created": 1677652288,
-//     "model": "gpt-3.5-turbo-0125",
-//     "system_fingerprint": "fp_44709d6fcb",
-//     "choices": [{
-//       "index": 0,
-//       "message":   {"role": "assistant","content":"{\"emojis\": \"😍💖🔐⏳\",\"interpretation\": \"The heart eyes emoji expresses adoration, the heart with ribbon symbolizes the gift of love, the locked with key represents security and commitment.\",\"tags\": [\"love\", \"eternity\", \"commitment\"]"},
-//       "logprobs": null,
-//       "finish_reason": "stop"
-//     }],
+//     "created": 1710799828,
+//     "model": "gpt-4-0125-preview",
+//     "choices": [
+//       {
+//         "index": 0,
+//         "message": {
+//           "role": "assistant",
+//           "content": "{\"emojis\": \"❤️\",\"interpretation\": \"The heart emoji (❤️) is commonly used to represent love. It symbolizes affection and strong emotions towards someone or something.\",\"tags\": [\"emotion\", \"affection\", \"heart\"]}"
+//         },
+//         "logprobs": null,
+//         "finish_reason": "stop"
+//       }
+//     ],
 //     "usage": {
-//       "prompt_tokens": 9,
-//       "completion_tokens": 12,
-//       "total_tokens": 21
-//     }
+//       "prompt_tokens": 342,
+//       "completion_tokens": 52,
+//       "total_tokens": 394
+//     },
+//     "system_fingerprint": "fp_2846ec1ecc"
 //   }
+  
