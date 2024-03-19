@@ -66,7 +66,11 @@ export const POST = async (req: Request): Promise<Response> => {
         if (rawValue === undefined) {
           return new Response('An error occurred');
         }
-        
+
+        if (rawValue === undefined) {
+            return new Response('An error occurred');
+          }
+          
           const parsedResponse = JSON.parse(rawValue);
           // 由于 content 是一个 JSON 字符串，我们需要解析它以获取 emojis 和 tags
           const content = JSON.parse(parsedResponse.choices[0].message.content);
