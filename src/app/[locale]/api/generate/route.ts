@@ -10,6 +10,7 @@ if (!process.env.OPENAI_API_KEY) {
 // Use 'localeValue' in your code as needed
 export const POST = async (req: Request): Promise<Response> => {
     const locale = useLocale();
+    console.log('locale:', locale);
 
     const { messages } = (await req.json()) as {
         messages: ChatGPTMessage[];
@@ -68,10 +69,6 @@ export const POST = async (req: Request): Promise<Response> => {
         if (rawValue === undefined) {
           return new Response('An error occurred');
         }
-
-        if (rawValue === undefined) {
-            return new Response('An error occurred');
-          }
           
           const parsedResponse = JSON.parse(rawValue);
           // 由于 content 是一个 JSON 字符串，我们需要解析它以获取 emojis 和 tags

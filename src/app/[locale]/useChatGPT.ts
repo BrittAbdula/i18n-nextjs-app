@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { ChatGPTMessage } from "@/lib/OpenAIStream";
 import { useLocale } from "next-intl";
+import { url } from "inspector";
 
 type emojiCombo = {
     "emojis": string,
@@ -25,7 +26,6 @@ export function useChatGPT( clear:() => void ) {
         setLoading(true);
         const request = makeMessage('user', prompt);
         setConversation(sofar => [...sofar, request]);
-        
         const response = await fetch(`/${locale}/api/generate`, {
             method: "POST",
             headers: {
