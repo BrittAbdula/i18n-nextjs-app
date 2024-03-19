@@ -70,8 +70,8 @@ export const POST = async (req: Request): Promise<Response> => {
         const parsedResponse = JSON.parse(rawValue);
         const choices = parsedResponse.choices[0].message.content;
 
-        // if (choices && choices.length > 0) {
-        // const content = JSON.parse(parsedResponse.choices[0].message.content);
+        
+        const content = JSON.parse(parsedResponse.choices[0].message.content);
         // const emojicombolog: EmojiComboLogCreateInput = {
         //     uid: 1,
         //     comboText: messages[0].content,
@@ -87,7 +87,6 @@ export const POST = async (req: Request): Promise<Response> => {
 
         // // Asynchronously insert the data into the database
         // await insertEmojiComboLog(emojicombolog);
-        // }
 
         return new Response(rawValue);
     
