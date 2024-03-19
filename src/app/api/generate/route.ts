@@ -67,26 +67,25 @@ export const POST = async (req: Request): Promise<Response> => {
           return new Response('An error occurred');
         }
         
-        const parsedResponse = JSON.parse(rawValue);
-        const content = parsedResponse.choices[0].message.content;
-
-        
-        //const content = JSON.parse(parsedResponse.choices[0].message.content);
-        const emojicombolog: EmojiComboLogCreateInput = {
-            uid: 1,
-            comboText: messages[0].content,
-            emojis: content.emojis ? content.emojis : '',
-            lang: 'en',
-            interpretation: content.interpretation || null,
-            tag1: content.tags ? content.tags[0] || null : null,
-            tag2: content.tags ? content.tags[1] || null : null,
-            tag3: content.tags ? content.tags[2] || null : null,
-            model: model,
-            createdAt: new Date()
-        };
-
-        // // Asynchronously insert the data into the database
-        await insertEmojiComboLog(emojicombolog);
+          const parsedResponse = JSON.parse(rawValue);
+          // 由于 content 是一个 JSON 字符串，我们需要解析它以获取 emojis 和 tags
+          const content = JSON.parse(parsedResponse.choices[0].message.content);
+          
+          const emojicombolog = {
+              uid: 1,
+              comboText: messages[0].content,
+              emojis: content.emojis ? content.emojis : '',
+              lang: 'en',
+              interpretation: content.interpretation || null,
+              tag1: content.tags ? content.tags[0] || null : null,
+              tag2: content.tags ? content.tags[1] || null : null,
+              tag3: content.tags ? content.tags[2] || null : null,
+              model: model,
+              createdAt: new Date()
+          };
+      
+          // Asynchronously insert the data into the database
+          await insertEmojiComboLog(emojicombolog);
 
         return new Response(rawValue);
     
