@@ -86,7 +86,7 @@ export const POST = async (req: Request): Promise<Response> => {
         };
 
         // // Asynchronously insert the data into the database
-        // await insertEmojiComboLog(emojicombolog);
+        await insertEmojiComboLog(emojicombolog);
 
         return new Response(rawValue);
     
