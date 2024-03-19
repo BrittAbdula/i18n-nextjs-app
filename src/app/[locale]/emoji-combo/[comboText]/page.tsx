@@ -19,7 +19,7 @@ export default async function Get({ params }: { params: { comboText: string } })
         ) : (
             <div>
                 <h1>Emoji Combo Not Found</h1>
-                <p>Sorry, we couldn't find the emoji combo you were looking for.</p>
+                <p>Sorry, we could not find the emoji combo you were looking for.</p>
                 <p>
                     <Link href="/discovery">Discover more emoji combos</Link>
                 </p>
