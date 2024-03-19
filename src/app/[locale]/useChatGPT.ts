@@ -26,7 +26,7 @@ export function useChatGPT( clear:() => void ) {
         const request = makeMessage('user', prompt);
         setConversation(sofar => [...sofar, request]);
         
-        const response = await fetch('/api/generate', {
+        const response = await fetch(`/${locale}/api/generate`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

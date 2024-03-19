@@ -1,5 +1,6 @@
 import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/lib/OpenAIStream';
-import { insertEmojiComboLog, EmojiComboLogCreateInput } from '@/lib/emojicombolog';
+import { insertEmojiComboLog, EmojiComboLogCreateInput } from '@/lib/data-emojicombo';
+import { useLocale } from 'next-intl';
 
 if (!process.env.OPENAI_API_KEY) {
     throw new Error("Missing OPENAI_API_KEY");
@@ -8,6 +9,7 @@ if (!process.env.OPENAI_API_KEY) {
 
 // Use 'localeValue' in your code as needed
 export const POST = async (req: Request): Promise<Response> => {
+    const locale = useLocale();
 
     const { messages } = (await req.json()) as {
         messages: ChatGPTMessage[];
@@ -16,8 +18,8 @@ export const POST = async (req: Request): Promise<Response> => {
     if(!messages) {
        return new Response("Bad Request");
     }
-    // const model = 'gpt-4-turbo-preview';
-    const model = 'gpt-3.5-turbo-0125';
+    const model = 'gpt-4-turbo-preview';
+    // const model = 'gpt-3.5-turbo-0125';
 
     const payload: OpenAIStreamPayload = {
         model: model,
@@ -79,7 +81,7 @@ export const POST = async (req: Request): Promise<Response> => {
               uid: 1,
               comboText: messages[0].content,
               emojis: content.emojis ? content.emojis : '',
-              lang: 'en',
+              lang: locale,
               interpretation: content.interpretation || null,
               tag1: content.tags ? content.tags[0] || null : null,
               tag2: content.tags ? content.tags[1] || null : null,
