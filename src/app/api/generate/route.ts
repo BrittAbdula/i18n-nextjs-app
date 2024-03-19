@@ -72,18 +72,18 @@ export const POST = async (req: Request): Promise<Response> => {
 
         
         const content = JSON.parse(parsedResponse.choices[0].message.content);
-        // const emojicombolog: EmojiComboLogCreateInput = {
-        //     uid: 1,
-        //     comboText: messages[0].content,
-        //     emojis: content.emojis ? content.emojis : '',
-        //     lang: 'en',
-        //     interpretation: content.interpretation || null,
-        //     tag1: content.tags ? content.tags[0] || null : null,
-        //     tag2: content.tags ? content.tags[1] || null : null,
-        //     tag3: content.tags ? content.tags[2] || null : null,
-        //     model: model,
-        //     createdAt: new Date()
-        // };
+        const emojicombolog: EmojiComboLogCreateInput = {
+            uid: 1,
+            comboText: messages[0].content,
+            emojis: content.emojis ? content.emojis : '',
+            lang: 'en',
+            interpretation: content.interpretation || null,
+            tag1: content.tags ? content.tags[0] || null : null,
+            tag2: content.tags ? content.tags[1] || null : null,
+            tag3: content.tags ? content.tags[2] || null : null,
+            model: model,
+            createdAt: new Date()
+        };
 
         // // Asynchronously insert the data into the database
         // await insertEmojiComboLog(emojicombolog);
