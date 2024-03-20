@@ -30,5 +30,11 @@
       "author": "EmojiTell",
       "description": "Otra forma de expresar tus sentimientos.!"
     }
+  },
+  "Discovery": {
+    "title": "Descubrimiento",
+    "description": "Descubre Combinaciones de Emojis Estéticos Fascinantes😲",
+    "Categories": "Categorías",
+    "description_more": "Explora más de 40k+ combinaciones de emojis estéticos para situaciones cotidianas"
   }
 }

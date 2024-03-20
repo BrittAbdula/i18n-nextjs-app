@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { ChatGPTMessage } from "@/lib/OpenAIStream";
+import { ChatGPTMessage } from "@/_lib/OpenAIStream";
 import { useLocale } from "next-intl";
 import { url } from "inspector";
 

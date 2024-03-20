@@ -1,8 +1,8 @@
-import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/lib/OpenAIStream';
+import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/_lib/OpenAIStream';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { insertEmojiComboLog } from '@/lib/data-emojicombo';
+import { insertEmojiComboLog } from '@/_lib/data-emojicombo';
 import { useLocale } from 'next-intl';
-import { EmojiComboLogCreateInput } from '@/lib/data-emojicombo';
+import { EmojiComboLogCreateInput } from '@/_lib/data-emojicombo';
 
 if (!process.env.OPENAI_API_KEY) {
     throw new Error("Missing OPENAI_API_KEY");

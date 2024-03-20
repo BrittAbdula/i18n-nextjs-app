@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fetchEmojiCombo } from "@/lib/data-emojicombo";
+import { fetchEmojiCombo } from "@/_lib/data-emojicombo";
 import { EmojiCombo } from "@prisma/client";
 
 export default async function Get({ params }: { params: { comboText: string } }) {
