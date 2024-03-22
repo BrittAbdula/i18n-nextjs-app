@@ -3,6 +3,8 @@ import { fetchEmojiComboByText } from "@/_lib/data-emojicombo";
 
 export default async function Get({ params }: { params: { comboURL: string } }) {
     const comboURL = params.comboURL;
+    console.log('---------------comboURL:',comboURL);
+
     const emojiCombo = await fetchEmojiComboByText(comboURL);
     return (
         <main className="flex flex-1 w-full flex-col  px-4 mt-12 sm:mt-10">
