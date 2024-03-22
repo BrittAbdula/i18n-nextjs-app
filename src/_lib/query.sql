@@ -32,3 +32,15 @@ FROM (
     FROM "EmojiComboLog"
 ) AS EmojiRanking
 WHERE rn = 1;
+
+-- 初始化 EmojiTag 表
+truancate table "EmojiTag";
+insert into "EmojiTag"("tagName","tagType","createdAt")
+select distinct tag as "tagName", '2', now()
+from (
+    select "tag1" as tag, lang from "EmojiCombo" where "tag1" is not null
+    union all
+    select "tag2" as tag, lang from "EmojiCombo" where "tag2" is not null
+    union all
+    select "tag3" as tag, lang from "EmojiCombo" where "tag3" is not null
+) as tags;

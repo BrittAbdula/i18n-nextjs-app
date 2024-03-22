@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma";
-import { EmojiComboLog, EmojiCombo } from "@prisma/client";
+import { EmojiComboLog, EmojiCombo, EmojiTag } from "@prisma/client";
 
 export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
 
@@ -10,20 +10,8 @@ export const insertEmojiComboLog = async(log: EmojiComboLogCreateInput) => {
     })
 }
 
-// get hot emoji combos
-export const fetchHotEmojiCombos = async (): Promise<EmojiCombo[]> => {
-    const hotEmojiCombos = await prisma.emojiCombo.findMany({
-        take: 10,
-        orderBy: {
-            createdAt: 'desc'
-        }
-    });
-
-    return hotEmojiCombos;
-}
-
 // get emoji combo by combo text
-export const fetchEmojiCombo = async (comboText: string): Promise<EmojiCombo | null> => {
+export const fetchEmojiComboByText = async (comboText: string): Promise<EmojiCombo | null> => {
     const emojiCombo = await prisma.emojiCombo.findUnique({
         where: {
             comboText: comboText
@@ -31,4 +19,49 @@ export const fetchEmojiCombo = async (comboText: string): Promise<EmojiCombo | n
     });
 
     return emojiCombo;
+}
+
+// query emoji combos
+export const fetchEmojiCombos = async (query: string): Promise<EmojiCombo[]> => {
+    try {
+        const emojiCombos = await prisma.emojiCombo.findMany({
+            where: {
+                comboText: {
+                    contains: query
+                }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            take: 30
+        });
+
+        return emojiCombos;
+    } catch (error) {
+        console.log(error);
+        throw new Error("Failed to query emoji combos");
+    }
+}
+
+// get emoji tag
+export const fetchEmojiTags = async (tag: string): Promise<EmojiTag[]> => {
+    const emojiTag = await prisma.emojiTag.findMany({
+        where: {
+            tagName: {
+                contains: tag
+            }
+        },
+        orderBy: {
+            createdAt: 'desc'
+        },
+        take: 10
+    });
+
+    return emojiTag;
+}
+
+// count the number of emoji combos
+export const countEmojiCombos = async (): Promise<number> => {
+    const count = await prisma.emojiCombo.count();
+    return count;
 }

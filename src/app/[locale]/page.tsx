@@ -9,6 +9,6 @@ import IndexComponent from "@/components/indexComponent/IndexComponent";
 export default function Home() {
 
   return (
-        <IndexComponent />
+    <IndexComponent />
   )
 }

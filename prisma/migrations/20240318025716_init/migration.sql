@@ -67,7 +67,7 @@ CREATE TABLE "EmojiTag" (
     "id" SERIAL NOT NULL,
     "tagName" TEXT NOT NULL,
     "tagType" TEXT NOT NULL,
-    "lang" TEXT NOT NULL,
+    "lang" TEXT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "EmojiTag_pkey" PRIMARY KEY ("id")
@@ -84,73 +84,6 @@ CREATE TABLE "EmojiTagRela" (
     CONSTRAINT "EmojiTagRela_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "emoji_combo_log" (
-    "id" SERIAL NOT NULL,
-    "uid" INTEGER,
-    "combo_text" VARCHAR(256),
-    "emojis" VARCHAR(256),
-    "lang" VARCHAR(16),
-    "interpretation" TEXT,
-    "tag_1" VARCHAR(128),
-    "tag_2" VARCHAR(128),
-    "tag_3" VARCHAR(128),
-    "model" VARCHAR(32),
-    "create_time" TIMESTAMP(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT "emoji_combo_log_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "emoji_data" (
-    "id" SERIAL NOT NULL,
-    "code_point" VARCHAR(50),
-    "emoji_property" VARCHAR(255),
-    "emoji_version" VARCHAR(10),
-    "count" INTEGER,
-    "emoji_char" VARCHAR(10),
-    "name" TEXT,
-
-    CONSTRAINT "emoji_data_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "emoji_sequences" (
-    "id" SERIAL NOT NULL,
-    "code_point" VARCHAR(100),
-    "emoji_property" VARCHAR(255),
-    "name" TEXT,
-    "emoji_version" VARCHAR(10),
-    "count" INTEGER,
-    "emoji_char" VARCHAR(10),
-
-    CONSTRAINT "emoji_sequences_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "emoji_test" (
-    "id" SERIAL NOT NULL,
-    "code_point" VARCHAR(100),
-    "group_name" VARCHAR(64),
-    "subgroup_name" VARCHAR(64),
-    "qualified" VARCHAR(100),
-    "emoji_char" VARCHAR(10),
-    "emoji_version" VARCHAR(10),
-    "name" TEXT,
-
-    CONSTRAINT "emoji_test_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "emoji_variation_sequences" (
-    "id" SERIAL NOT NULL,
-    "code_point" VARCHAR(50),
-    "style" VARCHAR(16),
-    "emoji_version" VARCHAR(8),
-    "description" VARCHAR(64),
-
-    CONSTRAINT "emoji_variation_sequences_pkey" PRIMARY KEY ("id")
-);
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Emoji_codePoint_key" ON "Emoji"("codePoint");

@@ -1,73 +1,73 @@
-import { fetchHotEmojiCombos } from "@/_lib/data-emojicombo";
-import { EmojiCombo } from "@prisma/client";
-import Link from "next/link";
-import { useTranslations } from "next-intl";
+import Search from "@/components/search/Search";
+import EmojiComboList from "@/components/emojiCombosList/emojiCombosList";
+import EmojiTags from "@/components/category/emojiTags";
 
-export async function getStaticProps() {
-    const hotEmojiCombos = fetchHotEmojiCombos();
-    return {
-        props: {
-            hotEmojiCombos
-        }
+export default async function Discovery({
+    searchParams,
+}: {
+    searchParams?: {
+        query?: string;
     }
-    revalidate: 5 * 60; // revalidate 5 min
+}) {
+    const query = searchParams?.query || "";
+    return (
+        <main className="flex flex-1 w-full flex-col items-center text-center px-4 mt-12 sm:mt-10">
 
-}
+            <section>
+                {/* <!-- Container --> */}
+                <div className="mx-auto w-full px-5 py-3 md:px-10 md:py-6">
 
-export default function Discovery(props: { hotEmojiCombos: EmojiCombo[] }) {
-    const hotEmojiCombos = props.hotEmojiCombos
-    const t = useTranslations('Discovery');
-    // console.log(hotEmojiCombos);
-    {
-
-        return (
-            <main className="flex flex-1 w-full flex-col items-center text-center px-4 mt-12 sm:mt-10">
-                <input type="text" className="mb-10 block h-9 min-h-[44px] w-full rounded-md border border-solid border-[#cccccc] bg-[#f2f2f7] bg-[16px_center] bg-no-repeat py-3 pl-11 pr-4 text-sm font-bold text-[#333333] [background-size:18px] [border-bottom:1px_solid_rgb(215,_215,_221)]" placeholder="Search" />
-                <div className="flex flex-col gap-6">
-                    <p className="font-semibold">Categories</p>
-                    <div className="flex flex-wrap items-center gap-2">
-                        <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-                            <p>Design</p>
-                        </a>
-                        <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-                            <p>Illustrations</p>
-                        </a>
-                        <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-                            <p>Icons</p>
-                        </a>
-                        <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-                            <p>Plugins</p>
-                        </a>
-                        <a href="#" className="flex gap-3 rounded-md bg-[#f2f2f7] p-3 font-semibold">
-                            <p>Color Palette</p>
-                        </a>
+                {/* <!-- Title --> */}
+                <div className="mx-auto text-center">
+                    <h2 className="text-3xl font-bold md:text-5xl">Discover Mesmerizing Aesthetic Emoji Combos😲</h2>
+                    <p className="mx-auto mb-8 mt-4 max-w-lg text-[#647084] md:mb-12 lg:mb-16">Explore 40k+ Aesthetic Emoji Combos for everyday situations</p>
+                </div>
+                            {/* <!-- Search input --> */}
+                            {<Search />}
+                {/* <!-- Content --> */}
+                <div className="grid gap-10 md:gap-12 lg:grid-cols-[max-content_1fr]">
+                    {/* <!-- Filters --> */}
+                    <div className="mb-4 max-w-none lg:max-w-sm">
+                        <form name="wf-form-Filter-2" method="get" className="flex-col gap-6">
+                            {/* <!-- Filters title --> */}
+                            <div className="mb-6 flex items-center justify-between py-4 [border-bottom:1px_solid_rgb(217,_217,_217)]">
+                                <h5 className="text-xl font-bold">Filters</h5>
+                                <a href="#" className="text-sm">
+                                    <p>Clear all</p>
+                                </a>
+                            </div>
+                            {/* <!-- Categories --> */}
+                            <EmojiTags />
+                            {/* <!-- Divider --> */}
+                            <div className="mb-6 mt-6 h-px w-full bg-[#d9d9d9]"></div>
+                            <div className="mb-6 mt-6 h-px w-full bg-[#d9d9d9]"></div>
+                            {/* <!-- FIlter One --> */}
+                            <div className="flex flex-col gap-6">
+                                <div className="flex cursor-pointer items-center justify-between py-4 [border-top:1px_solid_rgba(0,_0,_0,_0)] md:py-0">
+                                    <p className="font-semibold">FIlter One</p>
+                                    <a href="#" className="inline-block text-sm text-black">
+                                        <p>Clear</p>
+                                    </a>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <label className="flex items-center text-sm font-medium">
+                                        <span className="inline-block cursor-pointer" >Option One</span>
+                                    </label>
+                                    <label className="flex items-center text-sm font-medium">
+                                        <span className="inline-block cursor-pointer" >Option Two</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {/* <!-- Decor --> */}
+                    <div className="w-full [border-left:1px_solid_rgb(217,_217,_217)]">
+                    {<EmojiComboList query={query} />}
                     </div>
                 </div>
+                </div>
+            </section>
+        </main>
+    )
 
-
-                {/* <!-- Section Features  --> */}
-                <section>
-                    {/* <!-- Features Container --> */}
-                    <div className="mx-auto max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32">
-                        <div className="mx-auto text-center">
-                            <h2 className="text-3xl font-bold md:text-5xl">Make every step user-centric</h2>
-                            <p className="mx-auto mb-8 mt-4 max-w-lg text-[#647084] md:mb-12 lg:mb-16">Lorem ipsum dolor sit amet consectetur adipiscing elit ut aliquam,purus sit amet luctus magna fringilla urna</p>
-                        </div>
-                        <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-                            {hotEmojiCombos.map((emojiCombo: EmojiCombo) => (
-                                <div key={emojiCombo.id} className="grid gap-8 border border-solid border-[#dfdfdf] p-8 md:p-10">
-                                <p className="text-xl font-semibold ">{emojiCombo.emojis}</p>
-                                    <Link href={`/emoji-combo/${emojiCombo.comboText}`}>
-                                        <p className="text-sm text-[#1A6292]">{emojiCombo.comboText}</p>
-                                    </Link>
-                                </div>
-                            )
-                            )}
-                        </div>
-                    </div>
-                </section>
-
-            </main>
-        )
-    }
 }
