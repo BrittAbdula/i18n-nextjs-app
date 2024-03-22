@@ -8,7 +8,6 @@ import LoadingDots from "@/components/loadingDots/LoadingDots";
 import { Toaster, toast } from "react-hot-toast";
 import type { NextPage } from "next";
 
-
 const IndexComponent: NextPage = () => {
     const [prompt, setPrompt] = useState('');
     const t = useTranslations("Index");

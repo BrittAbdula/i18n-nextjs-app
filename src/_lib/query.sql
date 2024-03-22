@@ -3,7 +3,7 @@ select * from "EmojiComboLog" order by "createdAt" desc limit 5；
 
 -- 初始化 EmojiCombo 表
 truncate "EmojiCombo";
-insert into "EmojiCombo"("comboText",emojis,lang,interpretation,tag1,tag2,tag3,model,"createdAt")
+insert into "EmojiCombo"("comboText",emojis,lang,interpretation,tag1,tag2,tag3,model,"comboURL",createdAt")
 SELECT
     "comboText",
     emojis,
@@ -13,6 +13,7 @@ SELECT
     tag2,
     tag3,
     model,
+    "comboURL",
     now()
 FROM (
     SELECT
@@ -24,6 +25,7 @@ FROM (
         tag2,
         tag3,
         model,
+        REGEXP_REPLACE(LOWER(TRIM("comboText")), '\s+', '-', 'g') AS "comboURL",
         "createdAt",
         ROW_NUMBER() OVER (
             PARTITION BY "comboText"

@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { fetchEmojiComboByText } from "@/_lib/data-emojicombo";
-import { EmojiCombo } from "@prisma/client";
 
-export default async function Get({ params }: { params: { comboText: string } }) {
-    const comboText = params.comboText;
-    const emojiCombo = await fetchEmojiComboByText(comboText);
+export default async function Get({ params }: { params: { comboURL: string } }) {
+    const comboURL = params.comboURL;
+    const emojiCombo = await fetchEmojiComboByText(comboURL);
     return (
         <main className="flex flex-1 w-full flex-col  px-4 mt-12 sm:mt-10">
         <section>

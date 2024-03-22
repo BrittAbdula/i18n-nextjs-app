@@ -10,7 +10,7 @@ const EmojiComboList = async ( { query, }: { query: string} ) => {
                     {emojiCombos.map((emojiCombo: EmojiCombo) => (
                         <div key={emojiCombo.id} className="grid gap-8 border border-solid border-[#dfdfdf] p-8 md:p-10">
                         <p className="text-xl font-semibold ">{emojiCombo.emojis}</p>
-                            <Link href={`/emoji-combo/${emojiCombo.comboText}`}>
+                            <Link href={`/emoji-combo/${emojiCombo.comboURL}`}>
                                 <p className="text-sm text-[#1A6292]">{emojiCombo.comboText}</p>
                             </Link>
                         </div>

@@ -50,7 +50,7 @@ model EmojiComboLog {
 
 model EmojiCombo {
   id             Int      @id @default(autoincrement())
-  comboText      String?  @unique @db.VarChar(255)
+  comboText      String?  @db.VarChar(255)
   emojis         String?  @db.VarChar(255)
   lang           String?  @db.VarChar(16)
   interpretation String?
@@ -58,6 +58,7 @@ model EmojiCombo {
   tag2           String?  @db.VarChar(128)
   tag3           String?  @db.VarChar(128)
   model          String?  @db.VarChar(32)
+  comboURL       String?  @unique @db.VarChar(255)
   createdAt      DateTime @default(now()) @db.Timestamp(6)
 }
 

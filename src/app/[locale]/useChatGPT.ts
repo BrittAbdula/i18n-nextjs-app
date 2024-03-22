@@ -23,6 +23,10 @@ export function useChatGPT( clear:() => void ) {
     }
     
     const generateEmojis = useCallback(async (prompt: string) => {
+        if(prompt.length > 140){
+            return;
+        }
+        
         setLoading(true);
         const request = makeMessage('user', prompt);
         setConversation(sofar => [...sofar, request]);
