@@ -92,7 +92,7 @@ CREATE UNIQUE INDEX "Emoji_codePoint_key" ON "Emoji"("codePoint");
 CREATE UNIQUE INDEX "Emoji_emojiChar_key" ON "Emoji"("emojiChar");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "EmojiCombo_comboText_key" ON "EmojiCombo"("comboText");
+CREATE UNIQUE INDEX "EmojiCombo_comboURL_key" ON "EmojiCombo"("comboURL");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "EmojiMeaning_emojiId_key" ON "EmojiMeaning"("emojiId");
