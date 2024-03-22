@@ -11,8 +11,7 @@ export const insertEmojiComboLog = async(log: EmojiComboLogCreateInput) => {
 }
 
 // get emoji combo by combo text
-export const fetchEmojiComboByText = async (comboText: string): Promise<EmojiCombo | null> => {
-    const comboURL  = comboText.trim().replace(/\s+/g, '-');
+export const fetchEmojiComboByText = async (comboURL: string): Promise<EmojiCombo | null> => {
     const emojiCombo = await prisma.emojiCombo.findUnique({
         where: {
             comboURL: comboURL
