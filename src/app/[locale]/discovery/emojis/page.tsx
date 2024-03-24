@@ -19,7 +19,7 @@ export default async function Discovery({
 
                 {/* <!-- Title --> */}
                 <div className="mx-auto text-center">
-                    <h2 className="text-3xl font-bold md:text-5xl">Discover your Favorite Emoji's Meaning</h2>
+                    <h2 className="text-3xl font-bold md:text-5xl">Discover your Favorite Emoji Meaning</h2>
                     <p className="mx-auto mb-8 mt-4 max-w-lg text-[#647084] md:mb-12 lg:mb-16">These 3,600+ emojis express love, congratulations, ideas, culture, and more</p>
                 </div>
                             {/* <!-- Search input --> */}
