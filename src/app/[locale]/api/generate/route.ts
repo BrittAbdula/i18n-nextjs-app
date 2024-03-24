@@ -21,6 +21,7 @@ export const POST = async (req: Request): Promise<Response> => {
     }
     const model = 'gpt-4-turbo-preview';
     // const model = 'gpt-3.5-turbo-0125';
+    const startTS = new Date();
 
     const payload: OpenAIStreamPayload = {
         model: model,
@@ -84,6 +85,7 @@ export const POST = async (req: Request): Promise<Response> => {
               tag2: content.tags ? content.tags[1] || null : null,
               tag3: content.tags ? content.tags[2] || null : null,
               model: model,
+              startTS: startTS,
               createdAt: new Date()
           };
       
