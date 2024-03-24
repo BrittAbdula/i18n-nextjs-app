@@ -12,7 +12,6 @@ type emojiCombo = {
 export function useChatGPT( clear:() => void ) {
     const locale = useLocale();
     const [isLoading, setLoading] = useState(false);
-    const [conversation, setConversation] = useState<ChatGPTMessage[]>([]);
     const [generatedEmojis, setGeneratedEmojis] = useState<emojiCombo>({emojis: "", interpretation: "", tags: []});
 
     function makeMessage( role: 'user' | 'assistant', content: string): ChatGPTMessage{
@@ -29,14 +28,13 @@ export function useChatGPT( clear:() => void ) {
         
         setLoading(true);
         const request = makeMessage('user', prompt);
-        setConversation(sofar => [...sofar, request]);
         const response = await fetch(`/${locale}/api/generate`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                messages: [...conversation, request]
+                messages: [ request ],
             })
         });
 
@@ -55,13 +53,9 @@ export function useChatGPT( clear:() => void ) {
         const generatedEmojis = JSON.parse(responseContent) as emojiCombo;
         setGeneratedEmojis(generatedEmojis);
 
-        const reply = makeMessage('assistant', responseContent);
-        setConversation(sofar => [...sofar, reply]);
-
-
         clear();
         setLoading(false);
-    }, [conversation, clear]);
+    }, [clear]);
 
     const restart = useCallback(() => {
         setConversation([]);

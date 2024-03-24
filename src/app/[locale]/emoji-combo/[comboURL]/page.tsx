@@ -3,7 +3,6 @@ import { fetchEmojiComboByText } from "@/_lib/data-emojicombo";
 
 export default async function Get({ params }: { params: { comboURL: string } }) {
     const comboURL = params.comboURL;
-    console.log('---------------comboURL:',comboURL);
 
     const emojiCombo = await fetchEmojiComboByText(comboURL);
     return (

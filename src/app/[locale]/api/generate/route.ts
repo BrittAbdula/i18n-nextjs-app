@@ -10,7 +10,7 @@ if (!process.env.OPENAI_API_KEY) {
 // Use 'localeValue' in your code as needed
 export const POST = async (req: Request): Promise<Response> => {
     const locale = useLocale();
-    console.log('locale:', locale);
+    // console.log('locale:', locale);
 
     const { messages } = (await req.json()) as {
         messages: ChatGPTMessage[];
