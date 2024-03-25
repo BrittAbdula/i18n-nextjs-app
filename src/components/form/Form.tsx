@@ -7,9 +7,11 @@ import { useTranslations } from 'next-intl';
 import LoadingDots from "@/components/loadingDots/LoadingDots";
 import { Toaster, toast } from "react-hot-toast";
 import GPTResponse from "../GPTResponse";
+import { useLocale } from "next-intl";
 
 
 export default function Form() {
+  const locale = useLocale();
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [_response, setResponse] = useAtom(responseAtom);
@@ -18,7 +20,7 @@ export default function Form() {
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    const res = await fetch("/api/convert", {
+    const res = await fetch(`/${locale}/api/convert`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
