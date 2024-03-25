@@ -77,7 +77,7 @@ export const POST = async (req: Request): Promise<Response> => {
           
           const emojicombolog = {
               uid: 1,
-              comboText: messages[-1].content,
+              comboText: messages[0].content,
               emojis: content.emojis ? content.emojis : '',
               lang: locale,
               interpretation: content.interpretation || null,
