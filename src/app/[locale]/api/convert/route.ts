@@ -4,7 +4,7 @@ if (!process.env.OPENAI_API_KEY) throw new Error("Missing OpenAI API Key");
 
 export const POST = async (req: Request) => {
   const { prompt } = (await req.json()) as { prompt: string };
-  const massages: ChatGPTMessage[] = [
+  const messages: ChatGPTMessage[] = [
     {
         "role": "system",
         "content": `# Role:
@@ -38,7 +38,7 @@ export const POST = async (req: Request) => {
     },
     {
         "role": "assistant",
-        "content": `😍💘👉👈|The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'.|["love", "romantic", "affection"]`
+        "content": `😍💘👉👈|The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'.|love,romantic,affection`
     },
     {
       "role": "user",
@@ -49,8 +49,9 @@ export const POST = async (req: Request) => {
   if (!prompt) return new Response("Missing prompt", { status: 400 });
 
   const payload: OpenAIStreamPayload = {
-    model: "gpt-3.5-turbo",
-    messages: massages,
+    // model: "gpt-3.5-turbo",
+    model: "gpt-4-turbo-preview",
+    messages: messages,
     temperature: 0.7,
     top_p: 1,
     frequency_penalty: 0,
@@ -60,7 +61,7 @@ export const POST = async (req: Request) => {
     n: 1,
   };
 
-  const stream = await OpenAIStream(payload);
+  const stream = await OpenAIStream(payload, prompt);
 
   return new Response(stream);
 };

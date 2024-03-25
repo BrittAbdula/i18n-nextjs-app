@@ -3,6 +3,31 @@ import {
     ReconnectInterval,
     createParser,
   } from "eventsource-parser";
+  import { insertEmojiComboLog } from "./data-emojicombo";
+  import { useLocale } from 'next-intl';
+
+
+  // insert emoji combo log
+  const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date) => {
+    const messages = messageText.split('|');
+    const tags = messages[2] ? messages[2].split(',') : [];
+    const emojicombolog = {
+        uid: 1,
+        comboText: prompt,
+        emojis: messages[0] || '',
+        lang: locale,
+        interpretation: messages[1] || null,
+        tag1: tags[0] || null,
+        tag2: tags[1] || null,
+        tag3: tags[2] || null,
+        model: model,
+        startTS: startTS,
+        createdAt: new Date()
+    };
+
+    // Asynchronously insert the data into the database
+    await insertEmojiComboLog(emojicombolog);
+  }
   
   export type ChatGPTAgent = "user" | "system" | "assistant";
   
@@ -23,9 +48,11 @@ import {
     n: number;
   }
   
-  export async function OpenAIStream(payload: OpenAIStreamPayload) {
+  export async function OpenAIStream(payload: OpenAIStreamPayload, lastPrompt: string) {
+    const locale = useLocale();
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
+    const startTS = new Date();
   
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -37,6 +64,7 @@ import {
     });
   
     let counter = 0;
+    let messageText = "";
   
     const stream = new ReadableStream({
       async start(controller) {
@@ -46,6 +74,7 @@ import {
   
             if (data === "[DONE]") {
               controller.close();
+              insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS)
               return;
             }
   
@@ -61,6 +90,7 @@ import {
               const queue = encoder.encode(text);
               controller.enqueue(queue);
               counter++;
+              messageText += text;
             } catch (err) {
               controller.error(err);
             }
