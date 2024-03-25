@@ -1,4 +1,4 @@
-import { fetchEmojis } from "@/_lib/data-emojicombo";
+import { fetchEmojis } from "@/lib/data-emojicombo";
 import { Emoji } from "@prisma/client";
 import Link from "next/link";
 

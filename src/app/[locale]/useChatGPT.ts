@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
-import { ChatGPTMessage } from "@/_lib/OpenAIStream";
+import { ChatGPTMessage } from "@/lib/OpenAIStream";
 import { useLocale } from "next-intl";
-import { url } from "inspector";
+import { responseAtom } from "@/lib/store";
+import { useAtom } from "jotai";
 
 type emojiCombo = {
     "emojis": string,
@@ -12,6 +13,7 @@ type emojiCombo = {
 export function useChatGPT( clear:() => void ) {
     const locale = useLocale();
     const [isLoading, setLoading] = useState(false);
+    const [_response, setResponse] = useAtom(responseAtom);
     const [generatedEmojis, setGeneratedEmojis] = useState<emojiCombo>({emojis: "", interpretation: "", tags: []});
 
     function makeMessage( role: 'user' | 'assistant', content: string): ChatGPTMessage{
@@ -28,7 +30,7 @@ export function useChatGPT( clear:() => void ) {
         
         setLoading(true);
         const request = makeMessage('user', prompt);
-        const response = await fetch(`/${locale}/api/generate`, {
+        const response = await fetch(`/${locale}/api/convert`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -43,25 +45,35 @@ export function useChatGPT( clear:() => void ) {
         }
 
         const data = response.body;
-        if(!data){
-            return;
-        }
+        if(!data) return;
 
-        const responseText = await response.text();
-        const responseJson = JSON.parse(responseText);
-        const responseContent = responseJson?.choices?.[0]?.message?.content;
-        const generatedEmojis = JSON.parse(responseContent) as emojiCombo;
-        setGeneratedEmojis(generatedEmojis);
+    //     const responseText = await response.text();
+    //     const responseJson = JSON.parse(responseText);
+    //     const responseContent = responseJson?.choices?.[0]?.message?.content;
+    //     const generatedEmojis = JSON.parse(responseContent) as emojiCombo;
+    //     setGeneratedEmojis(generatedEmojis);
 
-        clear();
-        setLoading(false);
-    }, [clear, locale]);
+    //     clear();
+    //     setLoading(false);
+    // }, [clear, locale]);
 
-    const restart = useCallback(() => {
-        setGeneratedEmojis({emojis: "", interpretation: "", tags: []});
-        setLoading(false);
-    }, []);
+    // const restart = useCallback(() => {
+    //     setGeneratedEmojis({emojis: "", interpretation: "", tags: []});
+    //     setLoading(false);
+    // }, []);
 
-    return  {generatedEmojis, isLoading, generateEmojis, restart};
-}
+    // return  {generatedEmojis, isLoading, generateEmojis, restart};
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
 
+    while(!done){
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        setResponse((prev) => prev + chunkValue);
+    }
+    setLoading(false);
+
+    return;
+}, [locale, setResponse])};

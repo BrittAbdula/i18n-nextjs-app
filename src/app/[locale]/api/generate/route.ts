@@ -1,5 +1,5 @@
-import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/_lib/OpenAIStream';
-import { insertEmojiComboLog, EmojiComboLogCreateInput } from '@/_lib/data-emojicombo';
+import { ChatGPTMessage, OpenAIStreamPayload, OpenAIStream } from '@/lib/OpenAIStream';
+import { insertEmojiComboLog, EmojiComboLogCreateInput } from '@/lib/data-emojicombo';
 import { useLocale } from 'next-intl';
 
 if (!process.env.OPENAI_API_KEY) {
@@ -63,6 +63,7 @@ export const POST = async (req: Request): Promise<Response> => {
             },
             ...messages
         ],
+        stream: false
     };
 
     const rawValue = await OpenAIStream(payload);

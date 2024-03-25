@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fetchEmojiByEmojiURL } from "@/_lib/data-emojicombo";
+import { fetchEmojiByEmojiURL } from "@/lib/data-emojicombo";
 
 export default async function Get({ params }: { params: { emojiURL: string } }) {
     const emojiURL = params.emojiURL;

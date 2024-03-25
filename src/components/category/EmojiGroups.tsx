@@ -1,4 +1,4 @@
-import { fetchEmojiGroups } from "@/_lib/data-emojicombo";
+import { fetchEmojiGroups } from "@/lib/data-emojicombo";
 
 
 const EmojiGroups = async () => {
