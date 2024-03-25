@@ -78,7 +78,7 @@ export default function Form() {
 
           {!isLoading && (<>
             <button
-              disabled={!prompt}
+              disabled={!input}
               className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
               onClick={ (e) => {
                 e.preventDefault();
@@ -88,7 +88,12 @@ export default function Form() {
               {t('cta')}&rarr;
             </button>
             <button
-              className="w-full justify-start mt-4">
+              className="w-full justify-start mt-4"
+              onClick={(e) => {
+                e.preventDefault();
+                setInput("");
+                setResponse("");
+            }}>
               {t('reset')}
             </button>
           </>
