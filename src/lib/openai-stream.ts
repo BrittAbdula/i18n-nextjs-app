@@ -4,7 +4,6 @@ import {
     createParser,
   } from "eventsource-parser";
 import { useLocale } from 'next-intl';
-import { prisma } from "@/prisma";
 import { insertEmojiComboLog } from "./data-emojicombo";
 
   // insert emoji combo log
