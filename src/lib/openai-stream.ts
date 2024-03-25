@@ -80,7 +80,6 @@ import { insertEmojiComboLog } from "./data-emojicombo";
   
             try {
               const json = JSON.parse(data);
-              console.log(json.choices);
               const text = json.choices[0].delta?.content || "";
   
               if (counter < 2 && (text.match(/\n/) || []).length) {
