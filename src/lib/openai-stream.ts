@@ -16,9 +16,9 @@ import { insertEmojiComboLog } from "./data-emojicombo";
         emojis: messages[0] || '',
         lang: locale,
         interpretation: messages[1] || null,
-        tag1: tags[0] || null,
-        tag2: tags[1] || null,
-        tag3: tags[2] || null,
+        tag1: tags[0].trim() || null,
+        tag2: tags[1].trim() || null,
+        tag3: tags[2].trim() || null,
         model: model,
         startTS: startTS,
         createdAt: new Date()
@@ -73,7 +73,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
   
             if (data === "[DONE]") {
               controller.close();
-              console.log('----------messageText:', messageText);
+              //console.log('----------messageText:', messageText);
               insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS)
               return;
             }

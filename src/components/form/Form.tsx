@@ -41,8 +41,8 @@ export default function Form() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      // covert '|' to '\n\n'
-      const chunkValueWithNewLine = chunkValue.replace(/\|/g, '\n\n');
+      // 将 '|' 转换为 '<br><br>'
+      const chunkValueWithNewLine = chunkValue.replace(/\|/g, '<br><br>');
       setResponse((prev) => prev + chunkValueWithNewLine);
     }
 

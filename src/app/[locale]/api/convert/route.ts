@@ -62,7 +62,6 @@ export const POST = async (req: Request) => {
   };
 
   const stream = await OpenAIStream(payload, prompt);
-  console.log("==============await OpenAIStream====stream: ", stream);
 
   return new Response(stream);
 };
