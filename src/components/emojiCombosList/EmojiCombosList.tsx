@@ -2,7 +2,7 @@ import { fetchEmojiCombos } from "@/_lib/data-emojicombo";
 import { EmojiCombo } from "@prisma/client";
 import Link from "next/link";
 
-const EmojiComboList = async ( { query, }: { query: string} ) => {
+const EmojiCombosList = async ( { query, }: { query: string} ) => {
     const emojiCombos = await fetchEmojiCombos(query);
     return (
             <div className="mx-auto max-w-7xl px-5 py-4 md:px-10 md:py-4 lg:py-4">
@@ -21,4 +21,4 @@ const EmojiComboList = async ( { query, }: { query: string} ) => {
     )
 }
 
-export default EmojiComboList;
+export default EmojiCombosList;

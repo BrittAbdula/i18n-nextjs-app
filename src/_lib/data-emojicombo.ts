@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma";
-import { EmojiComboLog, EmojiCombo, EmojiTag } from "@prisma/client";
+import { EmojiComboLog, EmojiCombo, EmojiTag, Emoji } from "@prisma/client";
 
 export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
 
@@ -10,8 +10,8 @@ export const insertEmojiComboLog = async(log: EmojiComboLogCreateInput) => {
     })
 }
 
-// get emoji combo by combo text
-export const fetchEmojiComboByText = async (comboURL: string): Promise<EmojiCombo | null> => {
+// get Unique emoji combo by URL
+export const fetchEmojiComboByURL = async (comboURL: string): Promise<EmojiCombo | null> => {
     const emojiCombo = await prisma.emojiCombo.findUnique({
         where: {
             comboURL: comboURL
@@ -64,4 +64,44 @@ export const fetchEmojiTags = async (tag: string): Promise<EmojiTag[]> => {
 export const countEmojiCombos = async (): Promise<number> => {
     const count = await prisma.emojiCombo.count();
     return count;
+}
+
+//////------------------------- emoji
+//fetch emojis
+export const fetchEmojis = async (query: string): Promise<Emoji[]> => {
+    try {
+        const emojis = await prisma.emoji.findMany({
+            where: {
+                name: {
+                    contains: query
+                }
+            },
+            take: 30
+        });
+        return emojis;
+    } catch (error) {
+        console.log(error);
+        throw new Error("Failed to query emojis");
+    }
+}
+
+// fetch Unique emoji by id
+export const fetchEmojiByEmojiURL = async (emojiURL: string): Promise<Emoji | null> => {
+    const emoji = await prisma.emoji.findUnique({
+        where: {
+            emojiURL: emojiURL
+        }
+    });
+
+    return emoji;
+}
+
+// fetch emoji groups
+export const fetchEmojiGroups = async (): Promise<string[]> => {
+    const emojiGroups = await prisma.emoji.findMany({
+        distinct: ['groupName']
+    });
+    console.log('------emojiGroups: ', emojiGroups)
+
+    return emojiGroups.map((group) => group.groupName).filter((name): name is string => name !== null);
 }

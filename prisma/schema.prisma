@@ -15,6 +15,7 @@ model Emoji {
   qualified    String?        @db.VarChar(100)
   emojiChar    String?        @unique @db.VarChar(10)
   emojiVersion String?        @db.VarChar(10)
+  emojiURL     String?        @unique @db.VarChar(255)
   name         String?
   EmojiMeaning EmojiMeaning[]
 }
@@ -45,6 +46,7 @@ model EmojiComboLog {
   tag2           String?  @db.VarChar(128)
   tag3           String?  @db.VarChar(128)
   model          String?  @db.VarChar(32)
+  startTS        DateTime @db.Timestamp(6)
   createdAt      DateTime @default(now()) @db.Timestamp(6)
 }
 
