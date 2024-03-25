@@ -5,9 +5,7 @@ import {
   } from "eventsource-parser";
 import { useLocale } from 'next-intl';
 import { prisma } from "@/prisma";
-import { EmojiComboLog } from "@prisma/client";
-
-export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
+import { insertEmojiComboLog } from "./data-emojicombo";
 
   // insert emoji combo log
   const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date) => {
@@ -28,9 +26,7 @@ export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
     };
 
     // Asynchronously insert the data into the database
-    await prisma.emojiComboLog.create({
-      data: emojicombolog
-  })
+    await insertEmojiComboLog(emojicombolog);
   }
   
   export type ChatGPTAgent = "user" | "system" | "assistant";
