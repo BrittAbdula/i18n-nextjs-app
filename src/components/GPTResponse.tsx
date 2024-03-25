@@ -3,13 +3,13 @@ import { responseAtom } from "@/lib/store";
 import { useAtom } from "jotai";
 
 export default function GPTResponse() {
-  const [response] = useAtom(responseAtom);
+    const [response] = useAtom(responseAtom);
 
-  return (
-    <div className="bg-slate-800 p-12 rounded-md w-full max-w-lg">
-      <p className="text-slate-200">
-        {response ? response : "Response goes here..."}
-      </p>
-    </div>
-  );
+    return (
+        <div className="w-full justify-start mt-4">
+            <label className="p-2 text-left font-medium flex align-center">
+                {response ? response : "Response goes here..."}
+            </label>
+        </div>
+    );
 }
