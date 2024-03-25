@@ -15,6 +15,7 @@ export default function Form() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [_response, setResponse] = useAtom(responseAtom);
+  const [combo, setCombo] = useState("");
   const t = useTranslations("Index");
 
   const handleSubmit = async () => {
@@ -43,6 +44,9 @@ export default function Form() {
       const chunkValue = decoder.decode(value);
       // 将 '|' 转换为 '<br><br>'
       const chunkValueWithNewLine = chunkValue.replace(/\|/g, '<br><br>');
+      if (chunkValue.includes('|')){
+        setCombo( _response + chunkValue.split('|')[0]);
+      }
       setResponse((prev) => prev + chunkValueWithNewLine);
     }
 
@@ -124,7 +128,7 @@ export default function Form() {
                     <button 
                         onClick={() => 
                             {
-                                navigator.clipboard.writeText(_response);
+                                navigator.clipboard.writeText(combo);
                             toast(
                                 t('copyed_text'),
                                 {
