@@ -76,6 +76,7 @@ import {
   
             if (data === "[DONE]") {
               controller.close();
+              console.log('----------messageText:', messageText);
               insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS)
               return;
             }
