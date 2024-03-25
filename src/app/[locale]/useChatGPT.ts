@@ -55,7 +55,7 @@ export function useChatGPT( clear:() => void ) {
 
         clear();
         setLoading(false);
-    }, [clear]);
+    }, [clear, locale]);
 
     const restart = useCallback(() => {
         setGeneratedEmojis({emojis: "", interpretation: "", tags: []});
