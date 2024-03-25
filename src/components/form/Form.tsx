@@ -41,7 +41,9 @@ export default function Form() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      setResponse((prev) => prev + chunkValue);
+      // covert '|' to '\n\n'
+      const chunkValueWithNewLine = chunkValue.replace(/\|/g, '\n\n');
+      setResponse((prev) => prev + chunkValueWithNewLine);
     }
 
     setIsLoading(false);
