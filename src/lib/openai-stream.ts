@@ -10,6 +10,7 @@ import {
   // insert emoji combo log
   const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date) => {
     const messages = messageText.split('|');
+    console.log(messages);
     const tags = messages[2] ? messages[2].split(',') : [];
     const emojicombolog = {
         uid: 1,
@@ -24,6 +25,7 @@ import {
         startTS: startTS,
         createdAt: new Date()
     };
+    console.log(emojicombolog);
 
     // Asynchronously insert the data into the database
     await insertEmojiComboLog(emojicombolog);
