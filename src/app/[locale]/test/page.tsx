@@ -1,7 +1,6 @@
 'use client';
-import { fetchEmojisWithMeanings } from "@/lib/script-initEmojiMeaning";
 import { useState, useEffect } from 'react';
-import { Emoji, EmojiMeaning } from '@prisma/client';
+import { Emoji } from '@prisma/client';
 
 
 const Test = () => {
@@ -16,24 +15,11 @@ const Test = () => {
         setEmojiMeanings(data);
     };
 
-    useEffect(() => {
-        const fetchEmojis = async () => {
-            const emojis = await fetchEmojisWithMeanings(3);
-            setEmojis(emojis);
-        }
-        fetchEmojis();
-    }, []);
-
     return (
         <div>
             <input type='number' value={n} onChange={(e) => setN(Number(e.target.value))} />
             <button onClick={processEmojis}>Click me</button>
-            {emojis.map((emoji) => (
-                <div key={emoji.id}>
-                    <p>{emoji.emojiChar}</p>
-                    <p>{emoji.name}</p>
-                </div>
-            ))}
+
         </div>
     );
 }
