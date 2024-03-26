@@ -20,6 +20,7 @@ export const fetchEmojisWithMeanings = async (n: number): Promise<Emoji[]> => {
 }
 
 const insertEmojiMeaning = async (emojiMeaning: EmojiMeaningInput): Promise<EmojiMeaning> => {
+    console.log('-------------insertEmojiMeaning-----------------', emojiMeaning);
     const newEmojiMeaning = await prisma.emojiMeaning.create({
         data: emojiMeaning
     });

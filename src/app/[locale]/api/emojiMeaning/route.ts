@@ -1,7 +1,5 @@
 import { fetchEmojiMeaning } from "@/lib/script-initEmojiMeaning";
 
-
-
 export async function GET(req: Request){
     const { searchParams } = new URL(req.url);
     const n = searchParams.get('n');
