@@ -73,16 +73,19 @@ export const fetchEmojiMeaning = async (n: number) => {
             if (rawValue === undefined) {
                 throw new Error("Failed to get emoji meaning");
             }
+            
             const rawValueJson = JSON.parse(rawValue);
+
+            const content = JSON.parse(rawValueJson.choices[0].message.content);
             const emojiMeaning: EmojiMeaningInput = {
-                emojiId: rawValueJson.emojiId,
-                interpretation: rawValueJson.interpretation,
-                example1: rawValueJson.example1,
-                example2: rawValueJson.example2,
-                example3: rawValueJson.example3,
-                tag1: rawValueJson.tag1,
-                tag2: rawValueJson.tag2,
-                tag3: rawValueJson.tag3,
+                emojiId: content.emojiId,
+                interpretation: content.interpretation,
+                example1: content.example1,
+                example2: content.example2,
+                example3: content.example3,
+                tag1: content.tag1,
+                tag2: content.tag2,
+                tag3: content.tag3,
                 model: model,
                 createdAt: new Date()
             };
