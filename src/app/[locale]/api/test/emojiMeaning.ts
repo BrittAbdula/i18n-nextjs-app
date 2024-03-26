@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 const getEmojiMeaning  = async (req: NextApiRequest, res: NextApiResponse) => {
     const { n } = req.query;
+    console.log('-----------getEmojiMeaning--------n', n);
     const emojis = await fetchEmojiMeaning(Number(n));
     return res.json(emojis);
 };

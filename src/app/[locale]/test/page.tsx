@@ -9,7 +9,7 @@ const Test = () => {
     const [emojiMeanings, setEmojiMeanings] = useState<Emoji[]>([]);
 
     const processEmojis = async () => {
-        const response = await fetch(`/api/emojiMeaning?id=${n}`);
+        const response = await fetch(`/api/emojiMeaning?n=${n}`);
         console.log(response);
         const data = await response.json();
         setEmojiMeanings(data);
