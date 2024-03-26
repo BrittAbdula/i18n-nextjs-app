@@ -55,7 +55,7 @@ export const fetchEmojiMeaning = async (n: number) => {
                     {
                       "interpretation": "<Explain the meaning of emoji>",
                       "example": [{"<Case 1>":"<Interpretation 1>"},{"<Case 2>":"<Interpretation 2>"},{"<Case 3>":"<Interpretation 3> "}],
-                      "tags": "<1-3 tags>"
+                      "tags": ["<tag1>","<tag2>","<tag3>"]
                     }
                     `
                 },
