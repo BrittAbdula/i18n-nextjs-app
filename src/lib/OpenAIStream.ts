@@ -35,6 +35,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
     }
 
     const rawValue = await response.text();
+    console.log('======OpenAIStream=======rawValue: ', rawValue);
 
     return rawValue;
 }
