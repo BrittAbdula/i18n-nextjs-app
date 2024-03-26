@@ -34,7 +34,7 @@ export const fetchEmojiMeaning = async (n: number) => {
     const model = 'gpt-4-turbo-preview';
     let i = 0
     await Promise.all(emojis.map(async (emoji) => {
-        const emojiChar = emoji.name + ":" + emoji.emojiChar || "";
+        const emojiChar = emoji.emojiChar || "";
         const payload: OpenAIStreamPayload = {
             model: model,
             messages: [
@@ -56,6 +56,8 @@ export const fetchEmojiMeaning = async (n: number) => {
                     "example": [{"<Case 1>":"<Interpretation 1>"},{"<Case 2>":"<Interpretation 2>"},{"<Case 3>":"<Interpretation 3> "}],
                     "tags": ["<tag1>","<tag2>","<tag3>"]
                     }
+                    #sample
+                    {"interpretation": "The ❤️ emoji represents the concept of love. It's directly associated with emotions such as affection, passion, and care for someone or something. It can also indicate enthusiasm or liking when referring to people, animals, activities, events, or even food. This emoji is one of the first and mainly used emojis expressing emotion.","example": [{"Expressing love towards someone you are in a romantic relationship with.":"I love you ❤️"},{"Showing a strong liking or enthusiasm for a song.":"I just ❤️ this song!"},{"Appreciating and showing positive feelings towards others’ work.":"You did an awesome job, guys! ❤️"}],"tags": ["Love", "Affection", "Appreciation"]}
                     `
                 },
                 {
