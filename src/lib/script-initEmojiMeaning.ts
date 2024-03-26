@@ -33,7 +33,7 @@ export const fetchEmojiMeaning = async (n: number) => {
     console.log('-------------fetchEmojiMeaning-----------------', emojis);
     const model = 'gpt-4-turbo-preview';
     let i = 0
-    emojis.map(async (emoji) => {
+    await Promise.all(emojis.map(async (emoji) => {
         const emojiChar = emoji.name + ":" + emoji.emojiChar || "";
         const payload: OpenAIStreamPayload = {
             model: model,
@@ -91,7 +91,7 @@ export const fetchEmojiMeaning = async (n: number) => {
         }catch(error){
             console.log(error);
         }
-    })
+    }));
     console.log('------insertEmojiMeaning---end---', i);
     return emojis;
 }
