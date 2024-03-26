@@ -37,6 +37,7 @@ export const fetchEmojiMeaning = async (n: number) => {
         const emojiChar = emoji.name + ":" + emoji.emojiChar || "";
         const payload: OpenAIStreamPayload = {
             model: model,
+            response_format: { "type": "json_object" },
             messages: [
                 {
                     role: "system",
@@ -52,7 +53,6 @@ export const fetchEmojiMeaning = async (n: number) => {
                     
                     
                     ## Output format:
-                    ### Json
                     {
                       "interpretation": "<Explain the meaning of emoji>",
                       "example": [{"<Case 1>":"<Interpretation 1>"},{"<Case 2>":"<Interpretation 2>"},{"<Case 3>":"<Interpretation 3> "}],
