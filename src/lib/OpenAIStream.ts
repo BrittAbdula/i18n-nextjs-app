@@ -10,6 +10,7 @@ export interface OpenAIStreamPayload {
 }
 
 export async function OpenAIStream(payload: OpenAIStreamPayload) {
+    console.log('--------------OpenAIStream payload', payload)
     const openai_URL = "https://api.openai.com/v1/chat/completions"
     // const openai_URL = "https://run.mocky.io/v3/48fd5469-b848-428c-8c56-3ba151e6507c"
     // const openai_URL = "https://run.mocky.io/v3/4000d08e-0149-4e36-aef6-d576a1224683"
