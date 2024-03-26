@@ -32,7 +32,9 @@ export default async function Get({ params }: { params: { emojiURL: string } }) 
                                 <br />
                             <p className="mb-6 max-w-md text-[#636262] md:mb-10 lg:mb-12"> 
                             #{emojiDetail.EmojiMeaning[0].tag1}
+                            <span className="mx-2"></span>
                             #{emojiDetail.EmojiMeaning[0].tag2}
+                            <span className="mx-2"></span>
                             #{emojiDetail.EmojiMeaning[0].tag3}
                             </p>
                                 <br />

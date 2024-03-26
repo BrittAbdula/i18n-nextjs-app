@@ -80,6 +80,9 @@ export const fetchEmojis = async (query: string): Promise<Emoji[]> => {
             where: {
                 name: {
                     contains: query
+                },
+                EmojiMeaning: {
+                    some: {}
                 }
             },
             include: {
