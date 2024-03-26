@@ -78,14 +78,14 @@ export const fetchEmojiMeaning = async (n: number) => {
             const content = JSON.parse(rawValueJson.choices[0].message.content);
             console.log('------content------', content);
             const emojiMeaning: EmojiMeaningInput = {
-                emojiId: content.emojiId,
+                emojiId: emoji.id,
                 interpretation: content.interpretation,
-                example1: content.example1,
-                example2: content.example2,
-                example3: content.example3,
-                tag1: content.tag1,
-                tag2: content.tag2,
-                tag3: content.tag3,
+                example1: content.example[0],
+                example2: content.example[1],
+                example3: content.example[2],
+                tag1: content.tags[0],
+                tag2: content.tags[1],
+                tag3: content.tags[2],
                 model: model,
                 createdAt: new Date()
             };
