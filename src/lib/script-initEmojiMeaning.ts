@@ -7,8 +7,10 @@ type EmojiMeaningInput = Omit<EmojiMeaning, 'id'>;
 export const fetchEmojisWithMeanings = async (n: number): Promise<Emoji[]> => {
     try {
         const emojis = await prisma.emoji.findMany({
-            include: {
-                EmojiMeaning: false,
+            where: {
+                EmojiMeaning: {
+                    none: {}
+                }
             },
             take: n
         });
