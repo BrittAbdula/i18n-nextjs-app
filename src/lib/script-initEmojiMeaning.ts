@@ -80,9 +80,9 @@ export const fetchEmojiMeaning = async (n: number) => {
             const emojiMeaning: EmojiMeaningInput = {
                 emojiId: emoji.id,
                 interpretation: content.interpretation,
-                example1: content.example[0],
-                example2: content.example[1],
-                example3: content.example[2],
+                example1: JSON.stringify(content.example[0]),
+                example2: JSON.stringify(content.example[1]),
+                example3: JSON.stringify(content.example[2]),
                 tag1: content.tags[0],
                 tag2: content.tags[1],
                 tag3: content.tags[2],
