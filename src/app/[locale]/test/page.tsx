@@ -2,7 +2,7 @@ import { fetchEmojisWithMeanings,fetchEmojiMeaning } from "@/lib/script-initEmoj
 
 const test = async () => {
     const emojis = await fetchEmojisWithMeanings(30);
-    const x = await fetchEmojiMeaning();
+    const x = await fetchEmojiMeaning(2);
     //console.log(emojis);
     return (
         <div>

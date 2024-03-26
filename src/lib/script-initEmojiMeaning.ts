@@ -27,8 +27,8 @@ const insertEmojiMeaning = async (emojiMeaning: EmojiMeaningInput): Promise<Emoj
 }
 
 
-export const fetchEmojiMeaning = async (emojiChar: string) => {
-    const emojis = await fetchEmojisWithMeanings(1)
+export const fetchEmojiMeaning = async (n: number) => {
+    const emojis = await fetchEmojisWithMeanings(n)
     console.log('-------------fetchEmojiMeaning-----------------', emojis);
     const model = 'gpt-4-turbo-preview';
     let i = 0
