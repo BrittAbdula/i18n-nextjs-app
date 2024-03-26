@@ -75,8 +75,10 @@ export const fetchEmojiMeaning = async (n: number) => {
             }
             
             const rawValueJson = JSON.parse(rawValue);
+            console.log('------rawValueJson------', rawValueJson);
 
             const content = JSON.parse(rawValueJson.choices[0].message.content);
+            console.log('------content------', rawValue);
             const emojiMeaning: EmojiMeaningInput = {
                 emojiId: content.emojiId,
                 interpretation: content.interpretation,
