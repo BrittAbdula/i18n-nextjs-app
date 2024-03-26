@@ -1,15 +1,17 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Emoji } from '@prisma/client';
+import { useLocale } from "next-intl";
 
 
 const Test = () => {
     const [n, setN] = useState(0);
+    const locale = useLocale();
     const [emojis, setEmojis] = useState<Emoji[]>([]);
     const [emojiMeanings, setEmojiMeanings] = useState<Emoji[]>([]);
 
     const processEmojis = async () => {
-        const response = await fetch(`/api/emojiMeaning?n=${n}`);
+        const response = await fetch(`/${locale}/api/emojiMeaning?n=${n}`);
         console.log(response);
         const data = await response.json();
         setEmojiMeanings(data);
