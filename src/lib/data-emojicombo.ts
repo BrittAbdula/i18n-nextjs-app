@@ -1,10 +1,10 @@
 import { prisma } from "@/prisma";
-import { EmojiComboLog, EmojiCombo, EmojiTag, Emoji } from "@prisma/client";
+import { EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning } from "@prisma/client";
 
 export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
 
 // insert emoji combo log
-export const insertEmojiComboLog = async(log: EmojiComboLogCreateInput) => {
+export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
     //console.log("--------insertEmojiComboLog: ", log);
     try {
         await prisma.emojiComboLog.create({
@@ -82,6 +82,9 @@ export const fetchEmojis = async (query: string): Promise<Emoji[]> => {
                     contains: query
                 }
             },
+            include: {
+                EmojiMeaning: true,
+            },
             take: 30
         });
         return emojis;
@@ -110,4 +113,23 @@ export const fetchEmojiGroups = async (): Promise<string[]> => {
     console.log('------emojiGroups: ', emojiGroups)
 
     return emojiGroups.map((group) => group.groupName).filter((name): name is string => name !== null);
+}
+
+type EmojiMeaningDetail = Emoji & { EmojiMeaning: EmojiMeaning[] };
+export const fetchEmojiMeaningbyURL = async (emojiURL: string): Promise<EmojiMeaningDetail[]> => {
+    try {
+        const emoji = await prisma.emoji.findFirst({
+            where: {
+                emojiURL: emojiURL,
+            },
+            include: {
+                EmojiMeaning: true,
+            },
+            take: 1
+        });
+        return emoji ? [emoji] : [];
+    } catch (error) {
+        console.log(error);
+        throw new Error("Failed to query emojis with their meanings");
+    }
 }
