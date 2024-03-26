@@ -6,7 +6,7 @@ export type ChatGPTMessage = {
 export interface OpenAIStreamPayload {
     model: string;
     messages: ChatGPTMessage[];
-    response_format?: { "type": string };
+    response_format?: { type: string };
     stream?: false | true;
 }
 

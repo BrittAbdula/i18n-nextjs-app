@@ -37,6 +37,7 @@ export const fetchEmojiMeaning = async (n: number) => {
         const emojiChar = emoji.name + ":" + emoji.emojiChar || "";
         const payload: OpenAIStreamPayload = {
             model: model,
+            response_format: { type: "json_object" },
             messages: [
                 {
                     role: "system",
@@ -77,7 +78,7 @@ export const fetchEmojiMeaning = async (n: number) => {
             console.log('------rawValueJson------', rawValueJson);
 
             const content = JSON.parse(rawValueJson.choices[0].message.content);
-            console.log('------content------', rawValue);
+            console.log('------content------', content);
             const emojiMeaning: EmojiMeaningInput = {
                 emojiId: content.emojiId,
                 interpretation: content.interpretation,
