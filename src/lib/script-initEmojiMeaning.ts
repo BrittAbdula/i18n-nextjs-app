@@ -57,7 +57,7 @@ export const fetchEmojiMeaning = async (n: number) => {
                     "tags": ["<tag1>","<tag2>","<tag3>"]
                     }
                     #sample
-                    {"interpretation": "The ❤️ emoji represents the concept of love. It's directly associated with emotions such as affection, passion, and care for someone or something. It can also indicate enthusiasm or liking when referring to people, animals, activities, events, or even food. This emoji is one of the first and mainly used emojis expressing emotion.","example": [{"Expressing love towards someone you are in a romantic relationship with.":"I love you ❤️"},{"Showing a strong liking or enthusiasm for a song.":"I just ❤️ this song!"},{"Appreciating and showing positive feelings towards others’ work.":"You did an awesome job, guys! ❤️"}],"tags": ["Love", "Affection", "Appreciation"]}
+                    {"interpretation": "The ❤️ emoji represents the concept of love. It's directly associated with emotions such as affection, passion, and care for someone or something. It can also indicate enthusiasm or liking when referring to people, animals, activities, events, or even food. This emoji is one of the first and mainly used emojis expressing emotion.","example": [{"Expressing love towards someone you are in a romantic relationship with:":"I love you ❤️"},{"Showing a strong liking or enthusiasm for a song:":"I just ❤️ this song!"},{"Appreciating and showing positive feelings towards others’ work:":"You did an awesome job, guys! ❤️"}],"tags": ["Love", "Affection", "Appreciation"]}
                     `
                 },
                 {
