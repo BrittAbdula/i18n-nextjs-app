@@ -92,4 +92,5 @@ export const fetchEmojiMeaning = async (n: number) => {
         }
     })
     console.log('------insertEmojiMeaning---end---', i);
+    return emojis;
 }
