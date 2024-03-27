@@ -1,5 +1,5 @@
 --- 最近使用日志
-select * from "EmojiComboLog" order by "createdAt" desc limit 5；
+select *,EXTRACT(EPOCH FROM ("createdAt" - "startTS")) as inteval from "EmojiComboLog" order by id desc limit 5;
 
 -- 初始化 EmojiCombo 表
 truncate "EmojiCombo";

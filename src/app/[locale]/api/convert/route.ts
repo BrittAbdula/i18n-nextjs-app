@@ -3,6 +3,7 @@ import { OpenAIStream, OpenAIStreamPayload,ChatGPTMessage } from "@/lib/openai-s
 if (!process.env.OPENAI_API_KEY) throw new Error("Missing OpenAI API Key");
 
 export const POST = async (req: Request) => {
+  console.log('-----1-----covert route:',req);
   const { prompt } = (await req.json()) as { prompt: string };
   const messages: ChatGPTMessage[] = [
     {
@@ -61,7 +62,9 @@ export const POST = async (req: Request) => {
     n: 1,
   };
 
-  const stream = await OpenAIStream(payload, prompt);
+  console.log('-----2-----request OpenAIStream payload:',payload);
+  const stream = await OpenAIStream(payload);
+  console.log('-----3-----request OpenAIStream stream:',stream);
 
   return new Response(stream);
 };

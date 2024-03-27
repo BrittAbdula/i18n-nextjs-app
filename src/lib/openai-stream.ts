@@ -25,7 +25,9 @@ import { insertEmojiComboLog } from "./data-emojicombo";
     };
 
     // Asynchronously insert the data into the database
+    console.log('-----7-----insertEmojiComboLog [start]:',messageText);
     await insertEmojiComboLog(emojicombolog);
+    console.log('-----8-----insertEmojiComboLog [end]:',messageText);
   }
   
   export type ChatGPTAgent = "user" | "system" | "assistant";
@@ -47,11 +49,13 @@ import { insertEmojiComboLog } from "./data-emojicombo";
     n: number;
   }
   
-  export async function OpenAIStream(payload: OpenAIStreamPayload, lastPrompt: string) {
+  export async function OpenAIStream(payload: OpenAIStreamPayload) {
+    const lastPrompt = payload.messages[payload.messages.length - 1].content;
     const locale = useLocale();
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
     const startTS = new Date();
+    console.log('-----4-----OpenAIStream start:',lastPrompt);
   
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -61,19 +65,21 @@ import { insertEmojiComboLog } from "./data-emojicombo";
       },
       body: JSON.stringify(payload),
     });
+    console.log('-----5-----OpenAIStream request openai:',res);
   
     let counter = 0;
     let messageText = "";
   
     const stream = new ReadableStream({
       async start(controller) {
-        function push(event: ParsedEvent | ReconnectInterval) {
+        function streamParser(event: ParsedEvent | ReconnectInterval) {
           if (event.type === "event") {
             const { data } = event;
   
             if (data === "[DONE]") {
               controller.close();
               //console.log('----------messageText:', messageText);
+              console.log('-----6-----OpenAIStream [DONE]:',messageText);
               insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS)
               return;
             }
@@ -96,7 +102,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
           }
         }
   
-        const parser = createParser(push);
+        const parser = createParser(streamParser);
   
         for await (const chunk of res.body as any) {
           parser.feed(decoder.decode(chunk));
