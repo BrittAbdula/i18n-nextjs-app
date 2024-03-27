@@ -27,7 +27,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
     // Asynchronously insert the data into the database
     console.log('-----7-----insertEmojiComboLog [start]:', new Date(),messageText);
     await insertEmojiComboLog(emojicombolog);
-    console.log('-----9-----insertEmojiComboLog [end]:', new Date(),messageText);
+    console.log('-----10-----insertEmojiComboLog [end]:', new Date(),messageText);
   }
   
   export type ChatGPTAgent = "user" | "system" | "assistant";
