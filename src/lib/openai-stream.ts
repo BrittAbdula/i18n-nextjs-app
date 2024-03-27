@@ -25,9 +25,9 @@ import { insertEmojiComboLog } from "./data-emojicombo";
     };
 
     // Asynchronously insert the data into the database
-    console.log('-----7-----insertEmojiComboLog [start]:',messageText);
+    console.log('-----7-----insertEmojiComboLog [start]:', new Date(),messageText);
     await insertEmojiComboLog(emojicombolog);
-    console.log('-----8-----insertEmojiComboLog [end]:',messageText);
+    console.log('-----9-----insertEmojiComboLog [end]:', new Date(),messageText);
   }
   
   export type ChatGPTAgent = "user" | "system" | "assistant";
@@ -55,7 +55,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
     const encoder = new TextEncoder();
     const decoder = new TextDecoder();
     const startTS = new Date();
-    console.log('-----4-----OpenAIStream start:',lastPrompt);
+    console.log('-----4-----OpenAIStream start:', new Date(),lastPrompt);
   
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -65,7 +65,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
       },
       body: JSON.stringify(payload),
     });
-    console.log('-----5-----OpenAIStream request openai:',res);
+    console.log('-----5-----OpenAIStream request openai:', new Date(),res);
   
     let counter = 0;
     let messageText = "";
@@ -79,7 +79,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
             if (data === "[DONE]") {
               controller.close();
               //console.log('----------messageText:', messageText);
-              console.log('-----6-----OpenAIStream [DONE]:',messageText);
+              console.log('-----6-----OpenAIStream [DONE]:', new Date(),messageText);
               insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS)
               return;
             }

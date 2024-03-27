@@ -6,6 +6,7 @@ export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
 // insert emoji combo log
 export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
     //console.log("--------insertEmojiComboLog: ", log);
+    console.log('-----9-----insertEmojiComboLog:', new Date(),log);
     try {
         await prisma.emojiComboLog.create({
             data: log
@@ -13,6 +14,8 @@ export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
     } catch (error) {
         console.log(error);
         throw new Error("Failed to insert emoji combo log");
+    }finally{
+        console.log('-----10-----insertEmojiComboLog:', new Date(),log);
     }
 }
 
