@@ -6,7 +6,7 @@ import RoundFilledNumber from "@/components/roundFilledNumber/RoundFilledNumber"
 import { useTranslations } from 'next-intl';
 import LoadingDots from "@/components/loadingDots/LoadingDots";
 import { Toaster, toast } from "react-hot-toast";
-import GPTResponse from "../GPTResponse";
+import GPTResponse from "./GPTResponse";
 import { useLocale } from "next-intl";
 
 
@@ -42,7 +42,6 @@ export default function Form() {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
-      // 将 '|' 转换为 '<br><br>'
       const chunkValueWithNewLine = chunkValue.replace(/\|/g, '<br><br>');
       if (chunkValue.includes('|')){
         setCombo( _response + chunkValue.split('|')[0]);
@@ -61,7 +60,8 @@ export default function Form() {
 
       <h2 className="sm:text-xl text-xl max-w-1xl font-light text-gray-600  sm:mt-2">
         {t('slogan')}
-      </h2>
+      </h2><br />
+      <p className="text-left font-medium flex align-center">eg: Of course I still Love You = 💖😊🔄💘</p>
 
       <div className="max-w-xl w-full">
         <div className="flex mt-10 items-center space-x-3">

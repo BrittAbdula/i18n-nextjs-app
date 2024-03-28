@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import { Emoji } from '@prisma/client';
 import { useLocale } from "next-intl";
+import { Metadata } from 'next';
+
 
 
 const Test = () => {

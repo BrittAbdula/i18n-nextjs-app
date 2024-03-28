@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LanguageChanger from "../languageChanger/LanguageChanger";
+import LanguageChanger from "./languageChanger/LanguageChanger";
 import { useTranslations } from "next-intl";
 
 export default function Header() {

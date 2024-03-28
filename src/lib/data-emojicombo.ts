@@ -1,5 +1,6 @@
 import { prisma } from "@/prisma";
 import { EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning } from "@prisma/client";
+import { cache } from "react";
 
 export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
 
@@ -20,7 +21,7 @@ export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
 }
 
 // get Unique emoji combo by URL
-export const fetchEmojiComboByURL = async (comboURL: string): Promise<EmojiCombo | null> => {
+export const fetchEmojiComboByURL = cache(async (comboURL: string): Promise<EmojiCombo | null> => {
     const emojiCombo = await prisma.emojiCombo.findUnique({
         where: {
             comboURL: comboURL
@@ -28,7 +29,7 @@ export const fetchEmojiComboByURL = async (comboURL: string): Promise<EmojiCombo
     });
 
     return emojiCombo;
-}
+});
 
 // query emoji combos
 export const fetchEmojiCombos = async (query: string): Promise<EmojiCombo[]> => {
@@ -75,7 +76,7 @@ export const countEmojiCombos = async (): Promise<number> => {
     return count;
 }
 
-//////------------------------- emoji
+//////------------------------- emoji --------------------------------------------------
 //fetch emojis
 export const fetchEmojis = async (query: string): Promise<Emoji[]> => {
     try {
@@ -116,13 +117,13 @@ export const fetchEmojiGroups = async (): Promise<string[]> => {
     const emojiGroups = await prisma.emoji.findMany({
         distinct: ['groupName']
     });
-    console.log('------emojiGroups: ', emojiGroups)
+    //console.log('------emojiGroups: ', emojiGroups)
 
     return emojiGroups.map((group) => group.groupName).filter((name): name is string => name !== null);
 }
 
 type EmojiMeaningDetail = Emoji & { EmojiMeaning: EmojiMeaning[] };
-export const fetchEmojiMeaningbyURL = async (emojiURL: string): Promise<EmojiMeaningDetail[]> => {
+export const fetchEmojiMeaningbyURL = async (emojiURL: string): Promise<EmojiMeaningDetail | null> => {
     try {
         const emoji = await prisma.emoji.findFirst({
             where: {
@@ -133,7 +134,7 @@ export const fetchEmojiMeaningbyURL = async (emojiURL: string): Promise<EmojiMea
             },
             take: 1
         });
-        return emoji ? [emoji] : [];
+        return emoji;
     } catch (error) {
         console.log(error);
         throw new Error("Failed to query emojis with their meanings");

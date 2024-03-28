@@ -1,9 +1,9 @@
-import { locales } from "@/navigation";
-import { notFound } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
-import { useMessages, NextIntlClientProvider } from "next-intl";
-import Form from "@/components/form/Form";
+import Form from "@/components/Form";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Free AI Emoji Translator"
+}
 
 
 export default function Home() {

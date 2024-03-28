@@ -1,11 +1,27 @@
 import Link from "next/link";
 import { fetchEmojiMeaningbyURL } from "@/lib/data-emojicombo";
+import { Metadata, ResolvingMetadata } from "next";
+
+
+export async function generateMetadata(
+    { params }: { params: { emojiURL: string } },
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    const emojiURL = params.emojiURL;
+    const emojiDetails = await fetchEmojiMeaningbyURL(emojiURL);
+    const title = emojiDetails?.name;
+    const description = "Meaning of the emoji '" + emojiDetails?.emojiChar + "': " + emojiDetails?.EmojiMeaning[0].interpretation + "...";
+
+    return {
+        title: title,
+        description: description
+    }
+}
 
 export default async function Get({ params }: { params: { emojiURL: string } }) {
     const emojiURL = params.emojiURL;
 
-    const emojiDetails = await fetchEmojiMeaningbyURL(emojiURL);
-    const emojiDetail = emojiDetails[0];
+    const emojiDetail = await fetchEmojiMeaningbyURL(emojiURL);
     return (
         <main className="flex flex-1 w-full flex-col  px-4 mt-12 sm:mt-10">
         <section>
