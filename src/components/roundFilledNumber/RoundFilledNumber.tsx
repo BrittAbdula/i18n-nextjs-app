@@ -9,7 +9,7 @@ const RoundFilledNumber: React.FC<RoundFilledNumberProps> = ({ number }) => {
 
     return (
         <div
-            style={{ backgroundColor: '#1A6292'}}
+            style={{ backgroundColor: '#9933FF'}}
             className="rounded-full w-8 h-8 flex items-center justify-center text-white font-bold text-sm">
             {number}
         </div>

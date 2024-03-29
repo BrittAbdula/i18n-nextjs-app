@@ -3,40 +3,56 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "About"
 }
+
+const values = [
+    {
+      name: 'What is EmojiTell?',
+      description:
+        'EmojiTell is a web-based Emojis translator crafted specifically for you. Our core functionality is translating the text you input into aesthetically appealing emoji combinations. Not only can it help you express your unique feelings about life, but it can also assist you in communicating and sharing joy online.',
+    },
+    {
+      name: 'How does EmojiTell work?',
+      description:
+        'All you need to do is input some text, and EmojiTell will generate corresponding emoji combinations that are emotive and aesthetically pleasing. These combinations can accurately express your ideas and emotions.',
+    },
+    {
+      name: 'Did you know?',
+      description:
+        'Each emoji has its own story, and we have carefully designed the details page for each emoji, providing interpretations, use cases, and related information to help you better understand and use emojis.',
+    },
+  ]
+
 export default function Page() {
     
     return (
-        <main className="flex flex-1 w-full flex-col items-center text-center px-4 mt-12 sm:mt-10">
-            <div> About Page</div>
-            <div>
-                <h1>What is The EmojiTell?</h1>
-                <p> We recommend keeping it simple here. A few short words will do.</p>
-
-                <h1>How to use this EmojiTell to translate text emoji Combo</h1>
-                
-                <h1>How to use this EmojiTell to translate emoji to text</h1>
-                <p>if you want to transform your emotion, feeling or thoughts into something a little more visual(aesthetic emoji combos)? The EmojiTell can Help you.</p>
-                
-                <h1>What</h1>
-
-                <h1>The technology behind Ahrefs’ Emoji Translator Ahrefs</h1>
-
-
-                <h1>Use cases of EmojiTell’ Emoji Combos</h1>
-                <h2>Email Marketing for Increased Open Rates:</h2>
-                <p>A digital marketing agency plans social media campaigns for various clients. Using Ahrefs' Emoji Translator tool, they transform catchy slogans, product descriptions, or promotional messages into emojis. These emoji-enhanced messages are more visually appealing and can attract the attention of younger audiences who communicate primarily through emojis. For instance, a pizza delivery service could translate "Hot and fresh pizzas delivered to your doorstep" into 🍕🔥🚪, creating a fun and engaging social media post.</p>
-
-                <h2>Email Marketing for Increased Open Rates:</h2>
-                <p>An e-commerce company wants to improve their email marketing open rates. They utilize Ahrefs' Emoji Translator tool to convert their email subject lines and preview text into emojis. Research suggests that emojis in subject lines can increase email open rates. For example, a gardening store could translate "Exclusive Plant Sale This Weekend" into 🌱🎉🛍️, making the email more visually appealing and likely to capture the recipients' attention.</p>
-
-                <h2>Educational Content for Children: </h2>
-                <p>An educational app developer creates content for children to learn new words and phrases. By using Ahrefs' Emoji Translator tool, they can convert words and sentences into child-friendly emojis. For instance, the sentence "The cat is sitting on the mat" becomes 🐱➡️🪞. This visual representation helps young learners associate words with images, making the learning process more engaging and enjoyable.</p>
-
-
-
-                <h1>The technology behind Ahrefs’ Emoji Translator Ahrefs</h1>
-                <p>Ahrefs’ Emoji Translator uses a language model that learns patterns, grammar, and vocabulary from large amounts of text data – then uses that knowledge to generate human-like text based on a given prompt or input. The generated text combines both the model's learned information and its understanding of the input.</p>
-
-            </div>
+        <main className="isolate">
+            <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:mx-0">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">About Us</h2>
+            <p className="mt-6 text-lg leading-8 text-gray-600">
+            Welcome to EmojiTell, where we are dedicated to providing colorful and fun experiences through AI technology. We believe that emojis have a unique and irreplaceable value in showcasing emotions, conveying information, and enhancing the fun of communication.
+            </p>
+          </div>
+          <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            {values.map((value) => (
+              <div key={value.name}>
+                <dt className="font-semibold text-gray-900">{value.name}</dt>
+                <dd className="mt-1 text-gray-600">{value.description}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <div
+            className="absolute left-1/2 right-0 top-full -z-10 hidden -translate-y-1/2 transform-gpu overflow-hidden blur-3xl sm:block"
+            aria-hidden="true"
+          >
+            <div
+              className="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+              style={{
+                clipPath:
+                  'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+              }}
+            />
+          </div>
         </main>)
 }

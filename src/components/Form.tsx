@@ -2,13 +2,13 @@
 import { responseAtom } from "@/lib/store";
 import { useAtom } from "jotai";
 import { useState } from "react";
+import Image from "next/image";
 import RoundFilledNumber from "@/components/roundFilledNumber/RoundFilledNumber";
 import { useTranslations } from 'next-intl';
 import LoadingDots from "@/components/loadingDots/LoadingDots";
 import { Toaster, toast } from "react-hot-toast";
 import GPTResponse from "./GPTResponse";
 import { useLocale } from "next-intl";
-
 
 export default function Form() {
   const locale = useLocale();
@@ -43,8 +43,8 @@ export default function Form() {
       done = doneReading;
       const chunkValue = decoder.decode(value);
       const chunkValueWithNewLine = chunkValue.replace(/\|/g, '<br><br>');
-      if (chunkValue.includes('|')){
-        setCombo( _response + chunkValue.split('|')[0]);
+      if (chunkValue.includes('|')) {
+        setCombo(_response + chunkValue.split('|')[0]);
       }
       setResponse((prev) => prev + chunkValueWithNewLine);
     }
@@ -53,97 +53,144 @@ export default function Form() {
   };
 
   return (
-    <main className="flex flex-1 w-full flex-col items-center text-center px-4 mt-12 sm:mt-10">
-      <h1 className="sm:text-3xl text-2xl max-w-1xl font-normal text-slate-900">
-        {t('emojiCombo')} <span style={{ color: '#1A6292' }}>{t('translator')}</span>
-      </h1>
+    <main className="isolate">
+      {/* Hero section */}
+      <div className="relative pt-14">
+        <div
+          className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          aria-hidden="true"
+        >
+          <div
+            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+          />
+        </div>
+        <div className="py-24 sm:py-32">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl text-center">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                {t('emojiCombo')} <span style={{ color: '#9933FF' }}>{t('translator')}</span>
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-gray-600">
+                {t('slogan')}
+              </p>
+              <p className="mt-6 text-lg leading-8 text-gray-600">
+                eg: Of course I still Love You &rarr; 💖😊🔄💘
+              </p>
+              <div className="mt-10 flex items-center justify-center gap-x-6">
+
+
+                <div className="max-w-xl w-full">
+                  <div className="flex mt-10 items-center space-x-3">
+                    <RoundFilledNumber number={1} />
+                    <p className="text-left font-medium flex align-center">
+                      {t('step_1')} {" "}
+                    </p>
+                  </div>
+                  <textarea
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    rows={4}
+                    className="p-2 w-full rounded-md border-gray-300 border-2 shadow-sm focus:border-black focus:ring-black my-5"
+                    placeholder={t('exampleInput') || ''}
+                  />
+                  <div className="flex mt-2 items-center space-x-3">
+                    <RoundFilledNumber number={2} />
+                    <p className="text-left font-medium flex align-center">
+                      {t('step_2')} {" "}
+                    </p>
+                  </div>
+
+                  {!isLoading && (<>
+                    <button
+                      disabled={!input}
+                      className="bg-indigo-600 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-indigo-600/80 w-full"
+                      onClick={(e) => {
+                        setResponse("");
+                        e.preventDefault();
+                        handleSubmit();
+                      }}
+                    >
+                      {t('cta')}&rarr;
+                    </button>
+                    <button
+                      className="w-full justify-start mt-4"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setInput("");
+                        setResponse("");
+                      }}>
+                      {t('reset')}
+                    </button>
+                  </>
+                  )}
+                  {isLoading && (
+                    <button
+                      className="p-2 bg-indigo-600 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-indigo-600/80 w-full"
+                      disabled
+                    >
+                      <LoadingDots color="white" style="large" />
+                    </button>
+                  )}
+
+                  <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                    toastOptions={{ duration: 2000 }}
+                  />
+                  <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
+
+                  <div className="max-w-xl w-full">
+                    <div className="w-full justify-start mt-4">
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(combo);
+                          toast(
+                            t('copyed_text'),
+                            {
+                              icon: "✂️",
+                            }
+                          );
+                        }
+                        }>
+                        {t('copy_text')}
+                      </button>
+                    </div>
+                  </div>
+
+                  <GPTResponse />
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          aria-hidden="true"
+        >
+          <div
+            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+            style={{
+              clipPath:
+                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            }}
+          />
+        </div>
+      </div>
+
+
 
       <h2 className="sm:text-xl text-xl max-w-1xl font-light text-gray-600  sm:mt-2">
-        {t('slogan')}
+
       </h2><br />
-      <p className="text-left font-medium flex align-center">eg: Of course I still Love You = 💖😊🔄💘</p>
+      <p className="text-left font-medium flex align-center"></p>
 
-      <div className="max-w-xl w-full">
-        <div className="flex mt-10 items-center space-x-3">
-          <RoundFilledNumber number={1} />
-          <p className="text-left font-medium flex align-center">
-            {t('step_1')} {" "}
-          </p>
-        </div>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            rows={4}
-            className="p-2 w-full rounded-md border-gray-300 border-2 shadow-sm focus:border-black focus:ring-black my-5"
-            placeholder={t('exampleInput') || ''}
-          />
-          <div className="flex mt-2 items-center space-x-3">
-            <RoundFilledNumber number={2} />
-            <p className="text-left font-medium flex align-center">
-              {t('step_2')} {" "}
-            </p>
-          </div>
 
-          {!isLoading && (<>
-            <button
-              disabled={!input}
-              className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
-              onClick={ (e) => {
-                setResponse("");
-                e.preventDefault();
-                handleSubmit();
-              }}
-            >
-              {t('cta')}&rarr;
-            </button>
-            <button
-              className="w-full justify-start mt-4"
-              onClick={(e) => {
-                e.preventDefault();
-                setInput("");
-                setResponse("");
-            }}>
-              {t('reset')}
-            </button>
-          </>
-          )}
-          {isLoading && (
-            <button
-              className="p-2 bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
-              disabled
-            >
-              <LoadingDots color="white" style="large" />
-            </button>
-          )}
-
-        <Toaster
-                position="top-center"
-                reverseOrder={false}
-                toastOptions={{ duration: 2000 }}
-            />
-            <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
-
-            <div className="max-w-xl w-full">
-                <div className="w-full justify-start mt-4">
-                    <button 
-                        onClick={() => 
-                            {
-                                navigator.clipboard.writeText(combo);
-                            toast(
-                                t('copyed_text'),
-                                {
-                                    icon: "✂️",
-                                }
-                            );}
-                        }>
-                       { t('copy_text')}
-                    </button>
-                </div>
-            </div>
-
-            <GPTResponse /> 
-
-      </div>
     </main>
   );
 }

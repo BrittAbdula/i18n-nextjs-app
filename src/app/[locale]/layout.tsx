@@ -4,7 +4,7 @@ import "./globals.css";
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, useLocale, useMessages } from "next-intl";
 import Header from "@/components/Header";
-import Footer from "@/components/footer/Footer";
+import Footer from "@/components/Footer";
 import { locales } from "@/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,11 +29,11 @@ export default function RootLayout({
     <html lang={locale}>
     <NextIntlClientProvider locale={locale} messages={messages}>
       <body className={`${inter.className}`}>
-        <div className = "flex w-full mx-auto flex-col items-center justify-center py-2 min-h-screen">
+
           <Header />
               {children}
           <Footer />
-        </div>
+
       </body>
     </NextIntlClientProvider>
     </html>

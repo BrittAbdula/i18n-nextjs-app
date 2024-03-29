@@ -1,33 +1,108 @@
+'use client';
 import Link from "next/link";
-import LanguageChanger from "./languageChanger/LanguageChanger";
+import Image from "next/image";
+import { useState } from 'react'
 import { useTranslations } from "next-intl";
+import { Dialog } from "@headlessui/react";
+import {
+  Bars3Icon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
 
 export default function Header() {
-    const t = useTranslations('Index.Header');
-    const tl = useTranslations('Index.Links');
+    const t = useTranslations('Index.Links');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const navigation = [
+        { name: 'Home', href: '/' },
+        { name: t('discovery'), href: '/discovery' },
+        { name: t('emoji'), href: '/emojis' },
+        { name: t('about'), href: '/about' }
+      ];
+
     return (
-        <header className="flex justify-between items-center w-full mt-2 border-b pb-3 sm:px-4 px-2">
-            <Link href="/" className="flex space-x-3">
-                <h1 className="sm:text-2xl text-1xl font-normal ml-2 tracking-tight">
-                    { t('h1_suf') } <span style={{color: '#1A6292'}}>{t('h1_pre')}  </span>
-                </h1>
-            </Link>
-            <div className="flex flex-row">
-                {/* 添加的新导航项 */}
-                <Link href="/discovery">
-                    <h1 className="sm:text-lg text-base font-normal tracking-tight" style={{color: '#1A6292'}}>
-                        {tl('discovery')}
-                    </h1>
-                </Link>
-                <span className="mx-2">|</span>
-                <Link href="/about">
-                    <h1 className="sm:text-lg text-base font-normal tracking-tight" style={{color: '#1A6292'}}>
-                        {tl('about')}
-                    </h1>
-                </Link>
-                <span className="mx-2">|</span>
-                <LanguageChanger />
+        <header className="absolute inset-x-0 top-0 z-50">
+        <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+          <div className="flex lg:flex-1">
+            <a href="#" className="-m-1.5 p-1.5">
+              <span className="sr-only">EmojiTell</span>
+              <Image
+                className="h-8 w-auto"
+                src="/images/emojitell.svg"
+                width={320} height={64}
+                alt="EmojiTell.com"
+              />
+            </a>
+          </div>
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+          <div className="hidden lg:flex lg:gap-x-12">
+            {navigation.map((item) => (
+              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+                {item.name}
+              </a>
+            ))}
+          </div>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
+              Log in <span aria-hidden="true">&rarr;</span>
+            </a>
+          </div>
+        </nav>
+        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+          <div className="fixed inset-0 z-50" />
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div className="flex items-center justify-between">
+              <a href="#" className="-m-1.5 p-1.5">
+              <span className="sr-only">EmojiTell</span>
+              <Image
+                className="h-8 w-auto"
+                src="/images/emojitell.svg"
+                width={320} height={64}
+                alt="EmojiTell.com"
+              />
+              </a>
+              <button
+                type="button"
+                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <span className="sr-only">Close menu</span>
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
             </div>
-    </header>
+            <div className="mt-6 flow-root">
+              <div className="-my-6 divide-y divide-gray-500/10">
+                <div className="space-y-2 py-6">
+                  {navigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+                <div className="py-6">
+                  <a
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Log in
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Dialog.Panel>
+        </Dialog>
+      </header>
     );
 }
