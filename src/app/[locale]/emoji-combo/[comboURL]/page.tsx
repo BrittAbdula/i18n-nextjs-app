@@ -7,25 +7,26 @@ interface PageProps {
     emojiCombo: EmojiCombo;
 }
 
-export async function getServerSideProps({ params }: { params: { comboURL: string } }) {
-    // read route params
-    const comboURL = params.comboURL;
-    const emojiCombo: EmojiCombo | null = await fetchEmojiComboByURL(comboURL);
-    return {
-        props: {
-            emojiCombo,
-        },
-    };
-}
+// export async function getServerSideProps({ params }: { params: { comboURL: string } }) {
+//     // read route params
+//     const comboURL = params.comboURL;
+//     const emojiCombo: EmojiCombo | null = await fetchEmojiComboByURL(comboURL);
+//     return {
+//         props: {
+//             emojiCombo,
+//         },
+//     };
+// }
 
 export async function generateMetadata(
     { params }: { params: { comboURL: string } },
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     // read route params
-    const { props } = await getServerSideProps({ params });
-    const title = props.emojiCombo?.comboText;
-    const description = "Meaning of the emoji combos '" + props.emojiCombo?.emojis + "': " + props.emojiCombo?.interpretation?.substring(0, 100) + "...";
+    const comboURL = params.comboURL;
+    const emojiCombo: EmojiCombo | null = await fetchEmojiComboByURL(comboURL);
+    const title = emojiCombo?.comboText;
+    const description = "Meaning of the emoji combos '" + emojiCombo?.emojis + "': " + emojiCombo?.interpretation?.substring(0, 100) + "...";
 
     return {
         title: title,
@@ -34,10 +35,9 @@ export async function generateMetadata(
 }
 
 export default async function Get({ params }: { params: { comboURL: string } }) {
-    // const comboURL = params.comboURL;
+    const comboURL = params.comboURL;
 
-    const { props } = await getServerSideProps({ params });
-    const emojiCombo = props.emojiCombo;
+    const emojiCombo: EmojiCombo | null = await fetchEmojiComboByURL(comboURL);
 
     // const emojiCombo = params.emojiCombo;
     return (
