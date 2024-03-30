@@ -20,36 +20,44 @@ export default function Form() {
 
   const handleSubmit = async () => {
     setIsLoading(true);
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
 
-    const res = await fetch(`/${locale}/api/convert`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt: input }),
-    });
-
-    if (!res.ok) throw new Error(res.statusText);
-
-    const data = res.body;
-    if (!data) return;
-
-    const reader = data.getReader();
-    const decoder = new TextDecoder();
-    let done = false;
-
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
-      const chunkValueWithNewLine = chunkValue.replace(/\|/g, '<br><br>');
-      if (chunkValue.includes('|')) {
-        setCombo(_response + chunkValue.split('|')[0]);
+    try {
+      const res = await fetch(`/${locale}/api/convert`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: input }),
+      });
+  
+      if (!res.ok) throw new Error(res.statusText);
+  
+      const data = res.body;
+      if (!data) return;
+  
+      const reader = data.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+  
+      while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        const chunkValueWithNewLine = chunkValue.replace(/\|/g, '<br><br>');
+        if (chunkValue.includes('|')) {
+          setCombo(_response + chunkValue.split('|')[0]);
+        }
+        setResponse((prev) => prev + chunkValueWithNewLine);
       }
-      setResponse((prev) => prev + chunkValueWithNewLine);
+    }catch(error){
+      console.log("An error occurred while fetching data:", error);
+    }finally{
+      clearTimeout(timeoutId);
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -78,7 +86,7 @@ export default function Form() {
                 {t('slogan')}
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                eg: Of course I still Love You &rarr; 💖😊🔄💘
+                e.g. Of course I still Love You &rarr; 💖😊🔄💘
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
 

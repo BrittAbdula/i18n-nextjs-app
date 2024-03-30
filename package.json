@@ -20,6 +20,7 @@
     "next": "14.1.3",
     "next-intl": "^3.9.2",
     "nnpm": "^0.0.1",
+    "pnpm": "^8.15.5",
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
