@@ -116,10 +116,11 @@ export const fetchEmojiByEmojiURL = async (emojiURL: string): Promise<Emoji | nu
 
 // fetch emoji groups
 export const fetchEmojiGroups = async (): Promise<string[]> => {
+    console.log('------emojiGroups: ', new Date())
     const emojiGroups = await prisma.emoji.findMany({
         distinct: ['groupName']
     });
-    //console.log('------emojiGroups: ', emojiGroups)
+    console.log('------emojiGroups: ',  new Date())
 
     return emojiGroups.map((group) => group.groupName).filter((name): name is string => name !== null);
 }

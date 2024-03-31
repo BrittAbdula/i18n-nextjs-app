@@ -6,7 +6,7 @@ const EmojiTags = async () => {
     const emojiTags = await fetchEmojiTags(''); 
     
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
             <p className="font-semibold">Categories</p>
             <div className="flex flex-wrap items-center gap-2">
                 {

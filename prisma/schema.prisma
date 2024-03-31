@@ -80,3 +80,10 @@ model EmojiTagRela {
   createdAt DateTime  @default(now()) @db.Timestamp(6)
   EmojiTag  EmojiTag? @relation(fields: [tagId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
+
+model EmojiGroup {
+  id           Int            @id @default(autoincrement())
+  groupName    String?        @db.VarChar(64)
+  subgroupName String?        @db.VarChar(64)
+  createdAt    DateTime       @default(now()) @db.Timestamp(6)
+}

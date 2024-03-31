@@ -170,9 +170,6 @@ export default function Form() {
                     </button>
                   )}
 
-                  
-
-
 
                   <GPTResponse />
 

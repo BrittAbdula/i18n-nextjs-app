@@ -1,4 +1,4 @@
-import Search from "@/components/search/Search";
+import Search from "@/components/Search";
 import EmojiList from "@/components/EmojiList";
 import EmojiGroups from "@/components/category/EmojiGroups";
 
@@ -41,18 +41,13 @@ export default async function Discovery({
                             {<Search placeholder="Search emoji" />}
 
                         {/* <!-- Content --> */}
-                        <div className="grid gap-10 md:gap-12 lg:grid-cols-[max-content_1fr]">
+                        <div className="grid gap-4 md:gap-6 lg:grid-cols-[max-content_1fr]">
 
-                            {/* <!-- Filters --> */}
                             <div className="mb-4 max-w-none lg:max-w-sm">
-
-                                <form name="wf-form-Filter-2" method="get" className="flex-col gap-6">
-                                    <EmojiGroups />
-                                </form>
+                                <EmojiGroups />
                             </div>
-                            {/* <!-- Decor --> */}
                             <div className="w-full [border-left:1px_solid_rgb(217,_217,_217)]">
-                                    {<EmojiList query={query} />}
+                                {<EmojiList query={query} />}
                             </div>
                         </div>
                     </div>

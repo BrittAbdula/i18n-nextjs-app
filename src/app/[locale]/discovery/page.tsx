@@ -1,4 +1,4 @@
-import Search from "@/components/search/Search";
+import Search from "@/components/Search";
 import EmojiComboList from "@/components/EmojiCombosList";
 import EmojiTags from "@/components/category/EmojiTags";
 import { Metadata } from "next";
@@ -20,10 +20,6 @@ export default async function Discovery({
     }
 }) {
 
-    const tabs = [
-        { name: 'EmojiCombos', href: '#', current: true },
-        { name: 'Emojis', href: '#', current: false },
-    ]
     const query = searchParams?.query || "";
     return (
         <main className="isolate">
@@ -43,34 +39,26 @@ export default async function Discovery({
                     </div>
                     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                         <h1 className="text-3xl font-bold tracking-tight text-gray-900">Discover Mesmerizing Aesthetic Emoji Combos😲</h1>
-                        <p className="mt-4 max-w-xl text-sm text-gray-700">Explore 40k+ Aesthetic Emoji Combos for everyday situations
-                        </p>
+                        <p className="mt-4 max-w-xl text-sm text-gray-700">Explore 40k+ Aesthetic Emoji Combos for everyday situations</p>
                     </div>
 
                 </div>
 
-                    {/* <!-- Container --> */}
-                    <div className="mx-auto w-full px-5 py-3 md:px-10 md:py-6">
+                {/* <!-- Container --> */}
+                <div className="mx-auto w-full px-5 py-3 md:px-10 md:py-6">
 
-                        {/* <!-- Search input --> */}
-                        {<Search placeholder="Search emoji combos" />}
+                    {/* <!-- Search input --> */}
+                    {<Search placeholder="Search emoji combos" />}
 
-                        {/* <!-- Content --> */}
-                        <div className="grid gap-10 md:gap-12 lg:grid-cols-[max-content_1fr]">
-
-                            {/* <!-- Filters --> */}
-                            <div className="mb-4 max-w-none lg:max-w-sm">
-
-                                <form name="wf-form-Filter-2" method="get" className="flex-col gap-6">
-                                    <EmojiTags />
-                                </form>
-                            </div>
-                            {/* <!-- Decor --> */}
-                            <div className="w-full [border-left:1px_solid_rgb(217,_217,_217)]">
-                                {<EmojiComboList query={query} />}
-                            </div>
+                    <div className="grid gap-4 md:gap-6 lg:grid-cols-[max-content_1fr]">
+                        <div className="mb-4 max-w-none lg:max-w-sm">
+                            <EmojiTags />
+                        </div>
+                        <div className="w-full [border-left:1px_solid_rgb(217,_217,_217)]">
+                            <EmojiComboList query={query} />
                         </div>
                     </div>
+                </div>
             </div>
         </main>
     )

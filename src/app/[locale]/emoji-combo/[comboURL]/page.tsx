@@ -2,6 +2,7 @@ import Link from "next/link";
 import { fetchEmojiComboByURL } from "@/lib/data-emojicombo";
 import { EmojiCombo } from "@prisma/client"
 import { Metadata, ResolvingMetadata } from "next";
+import Clipboard from "@/components/UI/Clipboard";
 
 interface PageProps {
     emojiCombo: EmojiCombo;
@@ -46,6 +47,7 @@ export default async function Get({ params }: { params: { comboURL: string } }) 
                     <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32"> {/* Title */}
                         <h1 className="text-center text-3xl font-bold md:text-5xl lg:text-left">{emojiCombo.emojis}</h1>
                         <h2 className="mb-4 text-xl font-bold md:text-2xl mt-4">{emojiCombo.comboText}</h2>
+                        <Clipboard copyText={emojiCombo.emojis} />
                         {/* Content */}
                         <div className="mx-auto">
 
