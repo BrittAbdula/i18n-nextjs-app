@@ -32,11 +32,12 @@ export const fetchEmojiComboByURL = cache(async (comboURL: string): Promise<Emoj
 });
 
 // query emoji combos
-export const fetchEmojiCombos = async (query: string): Promise<EmojiCombo[]> => {
+export const fetchEmojiCombos =cache(async (query: string): Promise<EmojiCombo[]> => {
     try {
         const emojiCombos = await prisma.emojiCombo.findMany({
             where: {
                 comboText: {
+                    mode: 'insensitive',
                     contains: query
                 }
             },
@@ -51,7 +52,7 @@ export const fetchEmojiCombos = async (query: string): Promise<EmojiCombo[]> => 
         console.log(error);
         throw new Error("Failed to query emoji combos");
     }
-}
+});
 
 // get emoji tag
 export const fetchEmojiTags = async (tag: string): Promise<EmojiTag[]> => {
@@ -78,11 +79,12 @@ export const countEmojiCombos = async (): Promise<number> => {
 
 //////------------------------- emoji --------------------------------------------------
 //fetch emojis
-export const fetchEmojis = async (query: string): Promise<Emoji[]> => {
+export const fetchEmojis = cache(async (query: string): Promise<Emoji[]> => {
     try {
         const emojis = await prisma.emoji.findMany({
             where: {
                 name: {
+                    mode: 'insensitive',
                     contains: query
                 },
                 EmojiMeaning: {
@@ -99,7 +101,7 @@ export const fetchEmojis = async (query: string): Promise<Emoji[]> => {
         console.log(error);
         throw new Error("Failed to query emojis");
     }
-}
+});
 
 // fetch Unique emoji by id
 export const fetchEmojiByEmojiURL = async (emojiURL: string): Promise<Emoji | null> => {

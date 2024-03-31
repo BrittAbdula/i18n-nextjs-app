@@ -1,5 +1,5 @@
 import Search from "@/components/search/Search";
-import EmojiComboList from "@/components/emojiCombosList/EmojiCombosList";
+import EmojiComboList from "@/components/EmojiCombosList";
 import EmojiTags from "@/components/category/EmojiTags";
 import { Metadata } from "next";
 

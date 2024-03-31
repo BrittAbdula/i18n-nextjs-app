@@ -1,24 +1,6 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { Emoji } from '@prisma/client';
-import { useLocale } from "next-intl";
-
-
-const Test = () => {
-    const [n, setN] = useState(0);
-    const locale = useLocale();
-    const [emojis, setEmojis] = useState<Emoji[]>([]);
-    const [emojiMeanings, setEmojiMeanings] = useState<Emoji[]>([]);
-
-    const processEmojis = async () => {
-        const response = await fetch(`/${locale}/api/emojiMeaning?n=${n}`);
-        console.log(response);
-        const data = await response.json();
-        setEmojiMeanings(data);
-    };
-
+export default function Loading() {
     return (
-<main className="isolate">
+        <main className="isolate">
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 mt-12">
                 <div className="relative pt-14">
                     <div
@@ -33,13 +15,11 @@ const Test = () => {
                             }}
                         />
                     </div>
-            <input type='number' value={n} onChange={(e) => setN(Number(e.target.value))} />
-            <button onClick={processEmojis}>Click me</button>
+                    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+                        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Loading...</h1>
+                    </div>
 
-        </div>
-        </div>
+                </div>
+            </div>
         </main>
-    );
-}
-
-export default Test;
+)}

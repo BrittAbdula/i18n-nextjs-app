@@ -1,5 +1,5 @@
 import Search from "@/components/search/Search";
-import EmojiList from "@/components/emojiList/EmojiList";
+import EmojiList from "@/components/EmojiList";
 import EmojiGroups from "@/components/category/EmojiGroups";
 
 export default async function Discovery({

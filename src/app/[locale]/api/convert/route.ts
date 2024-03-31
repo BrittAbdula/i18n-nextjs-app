@@ -50,8 +50,8 @@ export const POST = async (req: Request) => {
   if (!prompt) return new Response("Missing prompt", { status: 400 });
 
   const payload: OpenAIStreamPayload = {
-    // model: "gpt-3.5-turbo",
-    model: "gpt-4-turbo-preview",
+    model: "gpt-3.5-turbo",
+    // model: "gpt-4-turbo-preview",
     messages: messages,
     temperature: 0.7,
     top_p: 1,

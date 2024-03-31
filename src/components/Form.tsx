@@ -2,7 +2,6 @@
 import { responseAtom } from "@/lib/store";
 import { useAtom } from "jotai";
 import { useState } from "react";
-import Image from "next/image";
 import RoundFilledNumber from "@/components/roundFilledNumber/RoundFilledNumber";
 import { useTranslations } from 'next-intl';
 import LoadingDots from "@/components/loadingDots/LoadingDots";
@@ -17,6 +16,12 @@ export default function Form() {
   const [_response, setResponse] = useAtom(responseAtom);
   const [combo, setCombo] = useState("");
   const t = useTranslations("Index");
+  const reset = () => {
+    setInput("");
+    setIsLoading(false);
+    setResponse("");
+    setCombo("");
+  };
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -32,29 +37,28 @@ export default function Form() {
         },
         body: JSON.stringify({ prompt: input }),
       });
-  
+
       if (!res.ok) throw new Error(res.statusText);
-  
+
       const data = res.body;
       if (!data) return;
-  
+
       const reader = data.getReader();
       const decoder = new TextDecoder();
       let done = false;
-  
+
       while (!done) {
         const { value, done: doneReading } = await reader.read();
         done = doneReading;
         const chunkValue = decoder.decode(value);
         const chunkValueWithNewLine = chunkValue.replace(/\|/g, '<br><br>');
-        if (chunkValue.includes('|')) {
-          setCombo(_response + chunkValue.split('|')[0]);
-        }
         setResponse((prev) => prev + chunkValueWithNewLine);
+        setCombo((prev) => prev + chunkValue);
       }
-    }catch(error){
+      setCombo((prev) => prev.split('|')[0]);
+    } catch (error) {
       console.log("An error occurred while fetching data:", error);
-    }finally{
+    } finally {
       clearTimeout(timeoutId);
       setIsLoading(false);
     }
@@ -63,7 +67,7 @@ export default function Form() {
   return (
     <main className="isolate">
       {/* Hero section */}
-      <div className="relative pt-14">
+      <div className="relative">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -76,6 +80,8 @@ export default function Form() {
             }}
           />
         </div>
+
+        {/* content */}
         <div className="py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
@@ -89,8 +95,6 @@ export default function Form() {
                 e.g. Of course I still Love You &rarr; 💖😊🔄💘
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
-
-
                 <div className="max-w-xl w-full">
                   <div className="flex mt-10 items-center space-x-3">
                     <RoundFilledNumber number={1} />
@@ -117,41 +121,26 @@ export default function Form() {
                       disabled={!input}
                       className="bg-indigo-600 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-indigo-600/80 w-full"
                       onClick={(e) => {
+                        setCombo("");
                         setResponse("");
                         e.preventDefault();
                         handleSubmit();
-                      }}
-                    >
+                      }}>
                       {t('cta')}&rarr;
                     </button>
+
+                    {combo && (
+                    <>
                     <button
                       className="w-full justify-start mt-4"
                       onClick={(e) => {
                         e.preventDefault();
-                        setInput("");
-                        setResponse("");
+                        reset();
                       }}>
                       {t('reset')}
                     </button>
-                  </>
-                  )}
-                  {isLoading && (
-                    <button
-                      className="p-2 bg-indigo-600 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-indigo-600/80 w-full"
-                      disabled
-                    >
-                      <LoadingDots color="white" style="large" />
-                    </button>
-                  )}
-
-                  <Toaster
-                    position="top-center"
-                    reverseOrder={false}
-                    toastOptions={{ duration: 2000 }}
-                  />
-                  <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
-
-                  <div className="max-w-xl w-full">
+                    <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
+                    <div className="max-w-xl w-full">
                     <div className="w-full justify-start mt-4">
                       <button
                         onClick={() => {
@@ -168,6 +157,22 @@ export default function Form() {
                       </button>
                     </div>
                   </div>
+                    </>
+                    )}
+                  </>
+                  )}
+                  {isLoading && (
+                    <button
+                      className="p-2 bg-indigo-600 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-indigo-600/80 w-full"
+                      disabled
+                    >
+                      <LoadingDots color="white" style="large" />
+                    </button>
+                  )}
+
+                  
+
+
 
                   <GPTResponse />
 
@@ -192,11 +197,11 @@ export default function Form() {
       </div>
 
 
-
-      <h2 className="sm:text-xl text-xl max-w-1xl font-light text-gray-600  sm:mt-2">
-
-      </h2><br />
-      <p className="text-left font-medium flex align-center"></p>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        toastOptions={{ duration: 2000 }}
+      />
 
 
     </main>
