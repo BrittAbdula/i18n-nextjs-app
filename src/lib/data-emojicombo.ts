@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma";
-import { EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning } from "@prisma/client";
+import { EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning, EmojiGroup } from "@prisma/client";
 import { cache } from "react";
 
 export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
@@ -117,7 +117,7 @@ export const fetchEmojiByEmojiURL = async (emojiURL: string): Promise<Emoji | nu
 // fetch emoji groups
 export const fetchEmojiGroups = async (): Promise<string[]> => {
     console.log('------emojiGroups: ', new Date())
-    const emojiGroups = await prisma.emoji.findMany({
+    const emojiGroups = await prisma.emojiGroup.findMany({
         distinct: ['groupName']
     });
     console.log('------emojiGroups: ',  new Date())

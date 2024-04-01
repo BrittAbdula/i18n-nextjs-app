@@ -17,6 +17,10 @@ const Test = () => {
         setEmojiMeanings(data);
     };
 
+    const processEmojiCombos = async () => {
+        const response = await fetch(`/${locale}/api/emojiCombos?n=${n}`);
+    }
+
     return (
 <main className="isolate">
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 mt-12">
@@ -35,7 +39,7 @@ const Test = () => {
                     </div>
             <input type='number' value={n} onChange={(e) => setN(Number(e.target.value))} />
             <button onClick={processEmojis}>Click me</button>
-
+            <button onClick={() => setN(n + 1)}>IncrEmojiCombos</button>
         </div>
         </div>
         </main>

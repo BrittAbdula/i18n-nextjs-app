@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/loadingDots", "src/components/emojiCombosList"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/loadingDots", "src/components/emojiCombosList", "src/app/[locale]/api/cron.js"],
   "exclude": ["node_modules"]
 }
