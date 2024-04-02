@@ -6,6 +6,7 @@ import { NextIntlClientProvider, useLocale, useMessages } from "next-intl";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { locales } from "@/navigation";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({
           <Header />
               {children}
           <Footer />
+          <GoogleAnalytics gaId="G-NN0PPJW172" />
 
       </body>
     </NextIntlClientProvider>
