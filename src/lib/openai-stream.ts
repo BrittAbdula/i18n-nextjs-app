@@ -7,7 +7,7 @@ import { useLocale } from 'next-intl';
 import { insertEmojiComboLog } from "./data-emojicombo";
 
   // insert emoji combo log
-  const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date) => {
+  const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date, ResponTS: Date) => {
     const messages = messageText.split('|');
     const tags = messages[2] ? messages[2].split(',') : [];
     const emojicombolog = {
@@ -22,6 +22,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
         model: model,
         messageText: messageText,
         startTS: startTS,
+        ResponTS: ResponTS,
         createdAt: new Date()
     };
 
