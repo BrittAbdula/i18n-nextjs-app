@@ -82,7 +82,8 @@ import { insertEmojiComboLog } from "./data-emojicombo";
               controller.close();
               //console.log('----------messageText:', messageText);
               console.log('-----6-----OpenAIStream [DONE]:', new Date(),messageText);
-              insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS)
+              const ResponTS = new Date();
+              insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS, ResponTS)
               return;
             }
   
