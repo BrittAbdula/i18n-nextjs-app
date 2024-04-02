@@ -47,7 +47,7 @@ model EmojiComboLog {
   tag3           String?  @db.VarChar(128)
   model          String?  @db.VarChar(32)
   messageText    String?
-  ResponTS        DateTime @db.Timestamp(6)
+  responTS        DateTime @db.Timestamp(6)
   startTS        DateTime @db.Timestamp(6)
   createdAt      DateTime @default(now()) @db.Timestamp(6)
 }

@@ -7,7 +7,7 @@ import { useLocale } from 'next-intl';
 import { insertEmojiComboLog } from "./data-emojicombo";
 
   // insert emoji combo log
-  const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date, ResponTS: Date) => {
+  const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date, responTS: Date) => {
     const messages = messageText.split('|');
     const tags = messages[2] ? messages[2].split(',') : [];
     const emojicombolog = {
@@ -22,7 +22,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
         model: model,
         messageText: messageText,
         startTS: startTS,
-        ResponTS: ResponTS,
+        responTS: responTS,
         createdAt: new Date()
     };
 
@@ -82,8 +82,8 @@ import { insertEmojiComboLog } from "./data-emojicombo";
               controller.close();
               //console.log('----------messageText:', messageText);
               console.log('-----6-----OpenAIStream [DONE]:', new Date(),messageText);
-              const ResponTS = new Date();
-              insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS, ResponTS)
+              const responTS = new Date();
+              insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS, responTS)
               return;
             }
   
