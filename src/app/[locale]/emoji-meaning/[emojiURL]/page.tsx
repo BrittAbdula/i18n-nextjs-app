@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { fetchEmojiMeaningbyURL } from "@/lib/data-emojicombo";
 import { Metadata, ResolvingMetadata } from "next";
+import CopyButton from "@/components/CopyButton";
 
 
 export async function generateMetadata(
@@ -40,8 +41,9 @@ export default async function Get({ params }: { params: { emojiURL: string } }) 
             <section> {/* Container */}
                 {emojiDetail ? (
                     <div className="mx-auto w-full max-w-7xl px-5 py-16 md:px-10 md:py-24 lg:py-32"> {/* Title */}
-                        <h1 className="text-center text-3xl font-bold md:text-5xl lg:text-left">{emojiDetail.emojiChar}</h1>
+                        <h1 className="text-center text-3xl font-bold md:text-5xl lg:text-left emoji-text">{emojiDetail.emojiChar}</h1>
                         <h2 className="mb-4 mt-4 text-xl font-bold md:text-2xl">{emojiDetail.name}</h2>
+                        <CopyButton text={emojiDetail.emojiChar} />
                         {/* Content */}
                         <div className="mx-auto grid gap-8 lg:grid-cols-2">
                                 <div className="flex flex-col items-start py-8">

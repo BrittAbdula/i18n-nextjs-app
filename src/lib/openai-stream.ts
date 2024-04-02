@@ -20,6 +20,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
         tag2: tags[1].trim() || null,
         tag3: tags[2].trim() || null,
         model: model,
+        messageText: messageText,
         startTS: startTS,
         createdAt: new Date()
     };

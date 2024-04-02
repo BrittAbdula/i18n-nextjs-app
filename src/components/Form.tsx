@@ -92,7 +92,7 @@ export default function Form() {
                 {t('slogan')}
               </p>
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                e.g. Of course I still Love You &rarr; 💖😊🔄💘
+                e.g. Of course I still Love You &rarr; <span className=" text-xl font-bold md:text-2xl emoji-text">💖😊🔄💘</span>
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <div className="max-w-xl w-full">
@@ -119,7 +119,7 @@ export default function Form() {
                   {!isLoading && (<>
                     <button
                       disabled={!input}
-                      className="bg-indigo-600 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-indigo-600/80 w-full"
+                      className="bg-indigo-600 hover:bg-indigo-600/80 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8  w-full"
                       onClick={(e) => {
                         setCombo("");
                         setResponse("");
@@ -170,13 +170,10 @@ export default function Form() {
                     </button>
                   )}
 
-                  
-
-
-
                   <GPTResponse />
 
                 </div>
+                
 
               </div>
             </div>

@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Noto Color Emoji';
+    src: url('/fonts/NotoColorEmoji-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.emoji-text {
+    font-family: 'Noto Color Emoji', sans-serif;
+    margin-bottom: 0.5rem; 
+  }

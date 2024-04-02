@@ -1,9 +1,8 @@
-import Search from "@/components/search/Search";
-import EmojiComboList from "@/components/EmojiCombosList";
+import Search from "@/components/Search";
+import EmojiCombosList from "@/components/EmojiCombosList";
 import EmojiTags from "@/components/category/EmojiTags";
-import { getEmojiCombos } from "@/lib/action";
 import { Metadata } from "next";
-import { fetchEmojiCombos } from "@/lib/data-emojicombo";
+import { fetchEmojiCombos, countEmojiCombos } from "@/lib/data-emojicombo";
 
 export const metadata: Metadata = {
     title: "Discover Aesthetic Emoji Combos",
@@ -22,10 +21,10 @@ export default async function Discovery({
     }
 }) {
 
-    const NUMBER_OF_USERS_TO_FETCH = 5;
+    const NUMBER_OF_USERS_TO_FETCH = 50;
     const query = searchParams?.query || "";
-    // const initEmojiCombos = await getEmojiCombos(0, NUMBER_OF_USERS_TO_FETCH);
-    const initEmojiCombos = await fetchEmojiCombos( { offset: 0, limit: NUMBER_OF_USERS_TO_FETCH });
+    const countCombos = await countEmojiCombos();
+    const initEmojiCombos = await fetchEmojiCombos( { offset: 0, limit: NUMBER_OF_USERS_TO_FETCH, query: query });
 
     return (
         <main className="isolate">
@@ -45,7 +44,7 @@ export default async function Discovery({
                     </div>
                     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                         <h1 className="text-3xl font-bold tracking-tight text-gray-900">Discover Mesmerizing Aesthetic Emoji Combos😲</h1>
-                        <p className="mt-4 max-w-xl text-sm text-gray-700">Explore 40k+ Aesthetic Emoji Combos for everyday situations
+                        <p className="mt-4 max-w-xl text-sm text-gray-700">Explore {countCombos} Aesthetic Emoji Combos for everyday situations
                         </p>
                     </div>
 
@@ -56,7 +55,7 @@ export default async function Discovery({
 
                         {/* <!-- Search input --> */}
                         {<Search placeholder="Search emoji combos" />}
-                        {<EmojiComboList initEmojiCombos={initEmojiCombos} />}
+                        {<EmojiCombosList initEmojiCombos={initEmojiCombos} query={query} />}
 
                     </div>
             </div>

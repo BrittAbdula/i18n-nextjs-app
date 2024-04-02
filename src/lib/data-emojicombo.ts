@@ -32,10 +32,11 @@ export const fetchEmojiComboByURL = cache(async (comboURL: string): Promise<Emoj
 });
 
 // query emoji combos
-export const fetchEmojiCombos =cache(async (opts: { query?: string, offset?: number, limit?: number}): Promise<EmojiCombo[]> => {
+export const fetchEmojiCombos =cache(async (opts: { query?: string, offset?: number, limit?: number, order?: string}): Promise<EmojiCombo[]> => {
     const query = opts.query;
     const offset = opts.offset || 0;
     const limit = opts.limit || 100;
+    const order = opts.order || { id: 'desc' };
     try {
         const emojiCombos = await prisma.emojiCombo.findMany({
             where: {
@@ -45,7 +46,7 @@ export const fetchEmojiCombos =cache(async (opts: { query?: string, offset?: num
                 }
             },
             orderBy: {
-                createdAt: 'desc'
+                id: 'desc'
             },
             skip: offset,
             take: limit
@@ -83,7 +84,11 @@ export const countEmojiCombos = async (): Promise<number> => {
 
 //////------------------------- emoji --------------------------------------------------
 //fetch emojis
-export const fetchEmojis = cache(async (query: string): Promise<Emoji[]> => {
+export const fetchEmojis = cache(async (opts: { query?: string, offset?: number, limit?: number, order?: string}): Promise<Emoji[]> => {
+    const query = opts.query;
+    const offset = opts.offset || 0;
+    const limit = opts.limit || 100;
+    const order = opts.order || { id: 'desc' };
     try {
         const emojis = await prisma.emoji.findMany({
             where: {
@@ -98,7 +103,11 @@ export const fetchEmojis = cache(async (query: string): Promise<Emoji[]> => {
             include: {
                 EmojiMeaning: true,
             },
-            take: 30
+            orderBy: {
+                id: 'desc'
+            },
+            skip: offset,
+            take: limit
         });
         return emojis;
     } catch (error) {
@@ -145,4 +154,10 @@ export const fetchEmojiMeaningbyURL = async (emojiURL: string): Promise<EmojiMea
         console.log(error);
         throw new Error("Failed to query emojis with their meanings");
     }
+}
+
+// count the number of emojis
+export const countEmojis = async (): Promise<number> => {
+    const count = await prisma.emojiMeaning.count();
+    return count;
 }

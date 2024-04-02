@@ -5,10 +5,10 @@ export const metadata: Metadata = {
   title: "Free AI Emoji Translator | EmojiTell"
 }
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
-    <Form />
+    <Form/>
     </>
   )
 }
