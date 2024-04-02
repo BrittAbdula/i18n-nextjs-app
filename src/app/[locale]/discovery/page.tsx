@@ -1,7 +1,9 @@
 import Search from "@/components/search/Search";
 import EmojiComboList from "@/components/EmojiCombosList";
 import EmojiTags from "@/components/category/EmojiTags";
+import { getEmojiCombos } from "@/lib/action";
 import { Metadata } from "next";
+import { fetchEmojiCombos } from "@/lib/data-emojicombo";
 
 export const metadata: Metadata = {
     title: "Discover Aesthetic Emoji Combos",
@@ -20,11 +22,11 @@ export default async function Discovery({
     }
 }) {
 
-    const tabs = [
-        { name: 'EmojiCombos', href: '#', current: true },
-        { name: 'Emojis', href: '#', current: false },
-    ]
+    const NUMBER_OF_USERS_TO_FETCH = 5;
     const query = searchParams?.query || "";
+    // const initEmojiCombos = await getEmojiCombos(0, NUMBER_OF_USERS_TO_FETCH);
+    const initEmojiCombos = await fetchEmojiCombos( { offset: 0, limit: NUMBER_OF_USERS_TO_FETCH });
+
     return (
         <main className="isolate">
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -54,22 +56,8 @@ export default async function Discovery({
 
                         {/* <!-- Search input --> */}
                         {<Search placeholder="Search emoji combos" />}
+                        {<EmojiComboList initEmojiCombos={initEmojiCombos} />}
 
-                        {/* <!-- Content --> */}
-                        <div className="grid gap-10 md:gap-12 lg:grid-cols-[max-content_1fr]">
-
-                            {/* <!-- Filters --> */}
-                            <div className="mb-4 max-w-none lg:max-w-sm">
-
-                                <form name="wf-form-Filter-2" method="get" className="flex-col gap-6">
-                                    <EmojiTags />
-                                </form>
-                            </div>
-                            {/* <!-- Decor --> */}
-                            <div className="w-full [border-left:1px_solid_rgb(217,_217,_217)]">
-                                {<EmojiComboList query={query} />}
-                            </div>
-                        </div>
                     </div>
             </div>
         </main>

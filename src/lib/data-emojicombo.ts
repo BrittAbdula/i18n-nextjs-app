@@ -32,7 +32,10 @@ export const fetchEmojiComboByURL = cache(async (comboURL: string): Promise<Emoj
 });
 
 // query emoji combos
-export const fetchEmojiCombos =cache(async (query: string): Promise<EmojiCombo[]> => {
+export const fetchEmojiCombos =cache(async (opts: { query?: string, offset?: number, limit?: number}): Promise<EmojiCombo[]> => {
+    const query = opts.query;
+    const offset = opts.offset || 0;
+    const limit = opts.limit || 100;
     try {
         const emojiCombos = await prisma.emojiCombo.findMany({
             where: {
@@ -44,13 +47,14 @@ export const fetchEmojiCombos =cache(async (query: string): Promise<EmojiCombo[]
             orderBy: {
                 createdAt: 'desc'
             },
-            take: 30
+            skip: offset,
+            take: limit
         });
 
         return emojiCombos;
     } catch (error) {
         console.log(error);
-        throw new Error("Failed to query emoji combos");
+        throw new Error("Failed to query emoji combos:");
     }
 });
 
