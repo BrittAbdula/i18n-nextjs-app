@@ -13,7 +13,7 @@ export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
             data: log
         });
     } catch (error) {
-        console.log(error);
+        console.error('-----999-----Failed to insert emoji combo log:', error);
         throw new Error("Failed to insert emoji combo log");
     }finally{
         console.log('-----9-----insertEmojiComboLog:', new Date(),log);
