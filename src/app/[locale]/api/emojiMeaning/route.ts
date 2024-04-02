@@ -1,8 +1,13 @@
 import { fetchEmojiMeaning } from "@/lib/script-initEmojiMeaning";
 
-export async function GET(req: Request){
+export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const n = searchParams.get('n');
     const emojis = await fetchEmojiMeaning(Number(n));
-    return emojis;
+    const jsonData = JSON.stringify(emojis);
+    return new Response(jsonData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
 };
