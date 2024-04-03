@@ -34,8 +34,8 @@ export function promptMessage(type: promptType, prompt: string) {
                   Output "emoticon" | "explanation" | "label" separated by "|"
 
                   ## Example:
-                    - Input: "I love you forever"
-                    - Output: "😍💘👉👈|The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'.|love,romantic,affection"
+                    - Input: I love you forever
+                    - Output: 😍💘👉👈|The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'.|love,romantic,affection
                   `,
               },
               {
@@ -51,8 +51,8 @@ export function promptMessage(type: promptType, prompt: string) {
                 "content": `You are an emoji master with incredible emotional awareness and extensive experience using text to translate emoji combos.
                 ## Goal: For input emoji combo, translate it into text and provide a clear and easy to understand explanation of the translation.
                 ## Example:
-                - Input: "😍💘👉👈"
-                - Output: "This means 'I love you'.The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings."
+                - Input: 😍💘👉👈
+                - Output: This means 'I love you'.The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings.
                 `
               },
               {
