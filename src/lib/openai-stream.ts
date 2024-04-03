@@ -4,7 +4,7 @@ import {
   createParser,
 } from "eventsource-parser";
 import { useLocale } from 'next-intl';
-import { insertEmojiComboLog, EmojiComboLogCreateInput, insertEmojiCombo } from "./data-emojicombo";
+import { insertEmojiComboLog, insertEmojiCombo } from "./data-emojicombo";
 import { promptType } from "./prompts";
 import { Prisma } from "@prisma/client";
 
@@ -27,7 +27,7 @@ const insertTODatabase = async (locale: string, proType: promptType, prompt: str
     console.log('-----7-----insertEmojiCombo [start]:', new Date(), emojicombo);
     await insertEmojiCombo(emojicombo);
   }else{
-    const emojicombolog: EmojiComboLogCreateInput = {
+    const emojicombolog: Prisma.EmojiComboLogCreateInput = {
       uid: 1,
       promptType: proType,
       prompt: prompt,

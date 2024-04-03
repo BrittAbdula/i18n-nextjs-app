@@ -2,10 +2,8 @@ import { prisma } from "@/prisma";
 import { Prisma, EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning } from "@prisma/client";
 import { cache } from "react";
 
-export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
-
 // insert emoji combo log
-export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
+export const insertEmojiComboLog = async (log: Prisma.EmojiComboLogCreateInput) => {
     //console.log("--------insertEmojiComboLog: ", log);
     console.log('-----8-----insertEmojiComboLog:', new Date(),log);
     try {
@@ -22,18 +20,18 @@ export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
 
 
 // insert emoji combo
-export const insertEmojiCombo = async (log: Prisma.EmojiComboCreateInput) => {
+export const insertEmojiCombo = async (combo: Prisma.EmojiComboCreateInput) => {
     //console.log("--------insertEmojiComboLog: ", log);
-    console.log('-----8-----insertEmojiComboLog:', new Date(),log);
+    console.log('-----8-----insertEmojiComboLog:', new Date(),combo);
     try {
-        await prisma.emojiComboLog.create({
-            data: log
+        await prisma.emojiCombo.create({
+            data: combo
         });
     } catch (error) {
-        console.error('-----999-----Failed to insert emoji combo log:', error);
+        console.error('-----999-----Failed to insert emoji combo:', error);
         throw new Error("Failed to insert emoji combo log");
     }finally{
-        console.log('-----9-----insertEmojiComboLog:', new Date(),log);
+        console.log('-----9-----insertEmojiCombo:', new Date(),combo);
     }
 }
 
