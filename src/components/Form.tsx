@@ -121,8 +121,9 @@ export default function Form() {
                       disabled={!input}
                       className="bg-indigo-600 hover:bg-indigo-600/80 rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8  w-full"
                       onClick={(e) => {
-                        setCombo("");
+                        setIsLoading(false);
                         setResponse("");
+                        setCombo("");
                         e.preventDefault();
                         handleSubmit();
                       }}>
