@@ -4,14 +4,14 @@ import {
     createParser,
   } from "eventsource-parser";
 import { useLocale } from 'next-intl';
-import { insertEmojiComboLog } from "./data-emojicombo";
+import { insertEmojiComboLog, EmojiComboLogCreateInput } from "./data-emojicombo";
 import { promptType } from "./prompts";
 
   // insert emoji combo log
   const insertTODatabase = async(locale: string, proType: promptType, prompt: string, messageText: string, model: string, startTS: Date, responTS: Date) => {
     const messages = messageText.split('|');
     const tags = messages[2] ? messages[2].split(',') : [];
-    const emojicombolog = {
+    const emojicombolog: EmojiComboLogCreateInput = {
         uid: 1,
         promptType: proType,
         prompt: prompt,
