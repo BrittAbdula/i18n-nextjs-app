@@ -14,7 +14,7 @@ import { promptType } from "./prompts";
     const emojicombolog = {
         uid: 1,
         promptType: proType,
-        comboText: prompt,
+        prompt: prompt,
         emojis: messages[0] || '',
         lang: locale,
         interpretation: messages[1] || null,

@@ -32,15 +32,11 @@ export function promptMessage(type: promptType, prompt: string) {
                   
                   ## Output format:
                   Output "emoticon" | "explanation" | "label" separated by "|"
+
+                  ## Example:
+                    - Input: "I love you forever"
+                    - Output: "😍💘👉👈|The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'.|love,romantic,affection"
                   `,
-              },
-              {
-                "role": "user",
-                "content": "I love you forever"
-              },
-              {
-                "role": "assistant",
-                "content": `😍💘👉👈|The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'.|love,romantic,affection`
               },
               {
                 "role": "user",
@@ -52,15 +48,12 @@ export function promptMessage(type: promptType, prompt: string) {
             messages = [
               {
                 "role": "system",
-                "content": "You are an emoji master with incredible emotional awareness and extensive experience using text to translate emoji combos.Your task is to parse the meaning of emoji combos"
-              },
-              {
-                "role": "user",
-                "content": "😍💘👉👈"
-              },
-              {
-                "role": "assistant",
-                "content": "The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings. This means 'I love you'."
+                "content": `You are an emoji master with incredible emotional awareness and extensive experience using text to translate emoji combos.
+                ## Goal: For input emoji combo, translate it into text and provide a clear and easy to understand explanation of the translation.
+                ## Example:
+                - Input: "😍💘👉👈"
+                - Output: "This means 'I love you'.The emojis represent intense love (😍), a heart struck by love (💘) and two individuals (represented by fingers pointing towards each other 👉👈) sharing these feelings."
+                `
               },
               {
                 "role": "user",
@@ -73,14 +66,6 @@ export function promptMessage(type: promptType, prompt: string) {
               {
                 "role": "system",
                 "content": "Your task is to take the plain text message provided and convert it into an expressive, emoji-rich message that conveys the same meaning and intent. Replace key words and phrases with relevant emojis where appropriate to add visual interest and emotion. Use emojis creatively but ensure the message remains clear and easy to understand. Do not change the core message or add new information."
-              },
-              {
-                "role": "user",
-                "content": "All the world’s a stage, and all the men and women merely players. They have their exits and their entrances; And one man in his time plays many parts."
-              },
-              {
-                "role": "assistant",
-                "content": "All the 🌍's a 🎭, and all the 👨 and 👩 merely 🎭🎬. They have their 🚪🚶‍♂️ and their 🚶‍♀️🚪; And one 👨 in his ⌛ plays many 🎭."
               },
               {
                 "role": "user",

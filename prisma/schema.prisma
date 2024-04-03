@@ -39,7 +39,7 @@ model EmojiComboLog {
   id             Int      @id @default(autoincrement())
   uid            Int?
   promptType      String?  @db.VarChar(64)
-  comboText      String?  @db.VarChar(255)
+  prompt      String?  @db.VarChar(255)
   emojis         String?  @db.VarChar(255)
   lang           String?  @db.VarChar(16)
   interpretation String?
