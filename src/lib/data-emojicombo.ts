@@ -1,11 +1,28 @@
 import { prisma } from "@/prisma";
-import { EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning } from "@prisma/client";
+import { Prisma, EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning } from "@prisma/client";
 import { cache } from "react";
 
 export type EmojiComboLogCreateInput = Omit<EmojiComboLog, 'id'>;
 
 // insert emoji combo log
 export const insertEmojiComboLog = async (log: EmojiComboLogCreateInput) => {
+    //console.log("--------insertEmojiComboLog: ", log);
+    console.log('-----8-----insertEmojiComboLog:', new Date(),log);
+    try {
+        await prisma.emojiComboLog.create({
+            data: log
+        });
+    } catch (error) {
+        console.error('-----999-----Failed to insert emoji combo log:', error);
+        throw new Error("Failed to insert emoji combo log");
+    }finally{
+        console.log('-----9-----insertEmojiComboLog:', new Date(),log);
+    }
+}
+
+
+// insert emoji combo
+export const insertEmojiCombo = async (log: Prisma.EmojiComboCreateInput) => {
     //console.log("--------insertEmojiComboLog: ", log);
     console.log('-----8-----insertEmojiComboLog:', new Date(),log);
     try {

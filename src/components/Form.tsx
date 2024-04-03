@@ -35,7 +35,7 @@ export default function Form() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ prompt: input }),
+        body: JSON.stringify({ prompt: input.trim() }),
       });
 
       if (!res.ok) throw new Error(res.statusText);
