@@ -24,7 +24,6 @@ export const POST = async (req: Request) => {
     return new Response("Prompt is too short", { status: 400 });
   } else if (isOnlyEmoji(prompt)) {
     proType = "emojiComboToText";
-    messages = promptMessage(proType, prompt);
   } else if (prompt.length > 100) {
     proType = "emoji-rich";
   } else {
