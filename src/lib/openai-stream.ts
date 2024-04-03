@@ -5,13 +5,15 @@ import {
   } from "eventsource-parser";
 import { useLocale } from 'next-intl';
 import { insertEmojiComboLog } from "./data-emojicombo";
+import { promptType } from "./prompts";
 
   // insert emoji combo log
-  const insertTODatabase = async(locale: string, prompt: string, messageText: string, model: string, startTS: Date, responTS: Date) => {
+  const insertTODatabase = async(locale: string, proType: promptType, prompt: string, messageText: string, model: string, startTS: Date, responTS: Date) => {
     const messages = messageText.split('|');
     const tags = messages[2] ? messages[2].split(',') : [];
     const emojicombolog = {
         uid: 1,
+        promptType: proType,
         comboText: prompt,
         emojis: messages[0] || '',
         lang: locale,
@@ -27,9 +29,9 @@ import { insertEmojiComboLog } from "./data-emojicombo";
     };
 
     // Asynchronously insert the data into the database
-    console.log('-----7-----insertEmojiComboLog [start]:', new Date(),messageText);
+    console.log('-----7-----insertEmojiComboLog [start]:', new Date(),emojicombolog);
     await insertEmojiComboLog(emojicombolog);
-    console.log('-----10-----insertEmojiComboLog [end]:', new Date(),messageText);
+    console.log('-----10-----insertEmojiComboLog [end]:', new Date());
   }
   
   export type ChatGPTAgent = "user" | "system" | "assistant";
@@ -51,7 +53,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
     n: number;
   }
   
-  export async function OpenAIStream(payload: OpenAIStreamPayload) {
+  export async function OpenAIStream(payload: OpenAIStreamPayload, proType: promptType) {
     const lastPrompt = payload.messages[payload.messages.length - 1].content;
     const locale = useLocale();
     const encoder = new TextEncoder();
@@ -67,7 +69,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
       },
       body: JSON.stringify(payload),
     });
-    console.log('-----5-----OpenAIStream request openai:', new Date(),res);
+    console.log('-----5-----OpenAIStream request openai status:', new Date(), res.status);
   
     let counter = 0;
     let messageText = "";
@@ -83,7 +85,7 @@ import { insertEmojiComboLog } from "./data-emojicombo";
               //console.log('----------messageText:', messageText);
               console.log('-----6-----OpenAIStream [DONE]:', new Date(),messageText);
               const responTS = new Date();
-              insertTODatabase(locale, lastPrompt, messageText, payload.model, startTS, responTS)
+              insertTODatabase(locale, proType, lastPrompt, messageText, payload.model, startTS, responTS)
               return;
             }
   
