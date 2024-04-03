@@ -22,7 +22,7 @@ export const insertEmojiComboLog = async (log: Prisma.EmojiComboLogCreateInput) 
 // insert emoji combo
 export const insertEmojiCombo = async (combo: Prisma.EmojiComboCreateInput) => {
     //console.log("--------insertEmojiComboLog: ", log);
-    console.log('-----8-----insertEmojiComboLog:', new Date(),combo);
+    console.log('-----8-----insertEmojiCombo:', new Date(),combo);
     try {
         await prisma.emojiCombo.create({
             data: combo
