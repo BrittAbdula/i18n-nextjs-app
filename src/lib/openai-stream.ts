@@ -16,13 +16,14 @@ const insertTODatabase = async (locale: string, proType: promptType, prompt: str
   console.log('-------tags.length:', tags.length);
   if (tags.length > 0) {
     const emojicombo: Prisma.EmojiComboCreateInput = {
-      comboText: prompt,
+      comboText: prompt.trim(),
       emojis: messages[0] || '',
       lang: locale,
       interpretation: messages[1] || null,
       tag1: tags[0]?.trim() || null,
       tag2: tags[1]?.trim() || null,
       tag3: tags[2]?.trim() || null,
+      comboURL: encodeURI(prompt.trim()),
       model: model,
       createdAt: new Date()
     };
