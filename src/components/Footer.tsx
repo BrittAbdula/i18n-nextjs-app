@@ -109,8 +109,9 @@ export default function Footer() {
               </a>
             ))}
           </div>
-          <p className="mt-8 text-xs leading-5 text-gray-500 md:order-1 md:mt-0">
-            &copy; 2024 EmojiTell, Inc. All rights reserved.
+          <p className="mt-8 text-xs leading-5 text-gray-500 md:order-1 md:mt-0 text-center">
+            &copy; 2024 EmojiTell, Inc. All rights reserved.<br/>
+            <a href="mailto:bussiness@emojitell.com" className="text-gray-500 hover:text-gray-600">bussiness@emojitell.com</a>
           </p>
             < LanguageChanger />
         </div>
