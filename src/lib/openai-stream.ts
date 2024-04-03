@@ -12,6 +12,8 @@ import { Prisma } from "@prisma/client";
 const insertTODatabase = async (locale: string, proType: promptType, prompt: string, messageText: string, model: string, startTS: Date, responTS: Date) => {
   const messages = messageText.split('|');
   const tags = messages[2] ? messages[2].split(',') : [];
+  console.log('-------tags:', tags);
+  console.log('-------tags.length:', tags.length);
   if (tags.length > 0) {
     const emojicombo: Prisma.EmojiComboCreateInput = {
       comboText: prompt,
