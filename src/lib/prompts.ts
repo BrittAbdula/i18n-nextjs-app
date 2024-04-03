@@ -46,7 +46,8 @@ export function promptMessage(type: promptType, prompt: string) {
                 "role": "user",
                 "content": prompt
               }
-            ]
+            ];
+            break;
         case "emojiComboToText":
             messages = [
               {
@@ -66,6 +67,7 @@ export function promptMessage(type: promptType, prompt: string) {
                 "content": prompt
               }
             ];
+            break;
         case "emoji-rich":
             messages = [
               {
@@ -85,6 +87,7 @@ export function promptMessage(type: promptType, prompt: string) {
                 "content": prompt
               }
             ];
-        return messages
+            break;
     }
+    return messages;
 }
