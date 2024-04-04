@@ -91,9 +91,9 @@ export default function Form() {
               <p className="mt-6 text-lg leading-8 text-gray-600">
                 {t('slogan')}
               </p>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
+              {/* <p className="mt-6 text-lg leading-8 text-gray-600">
                 e.g. Of course I still Love You &rarr; <span className=" text-xl font-bold md:text-2xl emoji-text">💖😊🔄💘</span>
-              </p>
+              </p> */}
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <div className="max-w-xl w-full">
                   <div className="flex mt-10 items-center space-x-3">

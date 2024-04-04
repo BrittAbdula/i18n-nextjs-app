@@ -15,7 +15,10 @@ export async function generateMetadata(
 
     return {
         title: title,
-        description: description
+        description: description,
+        alternates: {
+            canonical: `/emoji-combo/${emojiURL}`,
+        },
     }
 }
 

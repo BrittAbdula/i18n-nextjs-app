@@ -1,7 +1,11 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "About"
+    title: "About",
+    description: "EmojiTell helps you translate texts into simple and interesting emoji combinations by AI. It also interprets the translation results, conveying your emotions and feelings through visual expressions.",
+    alternates: {
+        canonical: `/emojis`,
+    },
 }
 
 const values = [

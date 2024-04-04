@@ -1,5 +1,6 @@
 import { prisma } from "@/prisma";
 import { Prisma, EmojiComboLog, EmojiCombo, EmojiTag, Emoji, EmojiMeaning } from "@prisma/client";
+import { cache } from "react";
 
 // insert emoji combo log
 export const insertEmojiComboLog = async (log: Prisma.EmojiComboLogCreateInput) => {
@@ -98,7 +99,7 @@ export const countEmojiCombos = async (): Promise<number> => {
 
 //////------------------------- emoji --------------------------------------------------
 //fetch emojis
-export const fetchEmojis = async (opts: { query?: string, offset?: number, limit?: number, order?: string}): Promise<Emoji[]> => {
+export const fetchEmojis = cache(async (opts: { query?: string, offset?: number, limit?: number, order?: string}): Promise<Emoji[]> => {
     const query = opts.query;
     const offset = opts.offset || 0;
     const limit = opts.limit || 100;
@@ -128,7 +129,7 @@ export const fetchEmojis = async (opts: { query?: string, offset?: number, limit
         console.log(error);
         throw new Error("Failed to query emojis");
     }
-};
+});
 
 // fetch Unique emoji by id
 export const fetchEmojiByEmojiURL = async (emojiURL: string): Promise<Emoji | null> => {
