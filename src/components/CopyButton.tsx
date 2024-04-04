@@ -1,5 +1,6 @@
 'use client'
 import { Toaster, toast } from "react-hot-toast";
+import { sendGTMEvent } from "@next/third-parties/google";
 
 const CopyButton = ( {text}: {text: string | null}) => {
     const copyText = text || "";
@@ -13,6 +14,7 @@ const CopyButton = ( {text}: {text: string | null}) => {
                             icon: "✂️",
                         }
                     );
+                    sendGTMEvent({ event: "copy", value: `{copyText}` });
                 }
                 }>
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
