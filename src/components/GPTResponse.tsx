@@ -2,6 +2,7 @@
 import { responseAtom } from "@/lib/store";
 import { useAtom } from "jotai";
 
+
 export default function GPTResponse() {
     const [response] = useAtom(responseAtom);
 

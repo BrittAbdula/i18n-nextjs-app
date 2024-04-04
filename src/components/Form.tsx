@@ -132,7 +132,7 @@ export default function Form() {
 
                     {combo && (
                     <>
-                    <button
+                    {/* <button
                       className="w-full justify-start mt-4"
                       onClick={(e) => {
                         e.preventDefault();
@@ -140,7 +140,7 @@ export default function Form() {
                       }}>
                       {t('reset')}
                     </button>
-                    <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
+                    <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" /> */}
                     <div className="max-w-xl w-full">
                     <div className="w-full justify-start mt-4">
                       <button
