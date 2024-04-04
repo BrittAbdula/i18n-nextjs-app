@@ -64,7 +64,7 @@ export default async function Get({ params }: { params: { emojiURL: string } }) 
                                     </div>
                                 </div>
                             <div className="md:flex md:justify-between lg:flex-col">
-                                    <div className="flex flex-col items-start pt-4 lg:px-8">
+                                    <div className="flex flex-col items-start pt-8 lg:px-8">
                                         <div className="mb-2 rounded-md bg-[#f2f2f7] px-2 py-1.5">
                                             <p className="text-sm font-semibold text-[#6574f8]">e.g.1</p>
                                         </div>
