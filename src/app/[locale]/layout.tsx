@@ -6,7 +6,7 @@ import { NextIntlClientProvider, useLocale, useMessages } from "next-intl";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { locales } from "@/navigation";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,6 +32,7 @@ export default function RootLayout({
   const messages = useMessages();
   return (
     <html lang={locale}>
+    <GoogleTagManager gtmId="GTM-MN7WSP2Q" />
     <NextIntlClientProvider locale={locale} messages={messages}>
       <body className={`${inter.className}`}>
 
