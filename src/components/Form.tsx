@@ -8,6 +8,7 @@ import LoadingDots from "@/components/loadingDots/LoadingDots";
 import { Toaster, toast } from "react-hot-toast";
 import GPTResponse from "./GPTResponse";
 import { useLocale } from "next-intl";
+import CopyButton from "./CopyButton";
 
 export default function Form() {
   const locale = useLocale();
@@ -132,6 +133,9 @@ export default function Form() {
 
                     {combo && (
                     <>
+                    <div className="mt-4 text-right">
+                      <CopyButton text={combo} />
+                    </div>
                     {/* <button
                       className="w-full justify-start mt-4"
                       onClick={(e) => {
@@ -143,7 +147,7 @@ export default function Form() {
                     <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" /> */}
                     <div className="max-w-xl w-full">
                     <div className="w-full justify-start mt-4">
-                      <button
+                      {/* <button
                         onClick={() => {
                           navigator.clipboard.writeText(combo);
                           toast(
@@ -155,7 +159,7 @@ export default function Form() {
                         }
                         }>
                         {t('copy_text')}
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                     </>
@@ -194,13 +198,12 @@ export default function Form() {
         </div>
       </div>
 
-
       <Toaster
         position="top-center"
         reverseOrder={false}
         toastOptions={{ duration: 2000 }}
+        containerStyle={{ zIndex: 5001 }}
       />
-
 
     </main>
   );
