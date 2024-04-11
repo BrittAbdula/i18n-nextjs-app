@@ -3,7 +3,7 @@
       "title": "EmojiTell",
       "translator": "translator",
       "emojiCombo": "Emoji combo",
-      "slogan": "EmojiTell - Another way to express your feelings!",
+      "slogan": "Let your emojis do the talking = 😎🤏😧🤏🤐 👉 🤩",
       "step_1": "Describe what you want to express",
       "step_2": "Translate into emoji combo 🤗💭🌟",
       "exampleInput": "e.g. I love you forever",
@@ -14,7 +14,7 @@
       "Links": {
         "home": "Home",
         "about": "About",
-        "discovery": "Discovery",
+        "discovery": "Emoji Combos",
         "emoji": "Emoji",
         "blog": "Blog"
       },
